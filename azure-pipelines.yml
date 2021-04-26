@@ -39,8 +39,24 @@ steps:
   continueOnError: true
   displayName: 'Execute Cypress tests'
 
+- task: PublishBuildArtifacts@1
+  condition: succeededOrFailed() 
+  displayName: "Publish Screenshots of failed tests"
+  inputs:
+    PathtoPublish: cypress/screenshots
+    ArtifactName: CypressFailedTestScreenshots
+
+- task: PublishBuildArtifacts@1
+  condition: succeededOrFailed() 
+  displayName: "Publish Cypress test video"
+  inputs:
+    PathtoPublish: cypress/videos
+    ArtifactName: CypressTestExecutionVideo
+
 - task: PublishTestResults@2
   condition: succeededOrFailed()  
   inputs:
       testRunner: JUnit
       testResultsFiles: '$(Build.SourcesDirectory)/test/results/*.xml'
+
+

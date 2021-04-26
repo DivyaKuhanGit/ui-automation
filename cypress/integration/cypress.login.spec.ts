@@ -14,7 +14,7 @@ describe('User Management UI', () => {
     cy.get('[id="next"]').click();
   });
 
-  it.skip('failing test', () => {
+  it('failing test', () => {
     cy.visit(hostUrl);
     cy.get('does-not-exist').should('be.visible');
   });
