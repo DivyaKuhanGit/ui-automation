@@ -38,14 +38,14 @@ steps:
 #         restoreKeys: cypress | $(Agent.OS) | package-lock.json
 #    displayName: Cache Cypress binary  
 
-- task: Npm@2
+- task: Npm@1
   inputs:
     command: 'custom'
     customCommand: 'run test'
   continueOnError: true
   displayName: 'Execute Cypress tests'
 
-- task: PublishTestResults@3
+- task: PublishTestResults@1
   condition: succeededOrFailed()  
   inputs:
       testRunner: JUnit
