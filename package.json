@@ -4,10 +4,11 @@
   "description": "Automated Tests for smart apprentice UI",
   "main": "main.ts",
   "scripts": {
-    "test": "npx cypress open",
+    "test": "npx cypress open", 
     "test:s": "jest --testPathPattern=specs",
     "build": "webpack",
-    "cy:verify":"cypress verify"
+    "cy:verify":"cypress verify",
+    "cy:test":"cypress run"
   },
   "dependencies": {
     "chromedriver": "^90.0.0",

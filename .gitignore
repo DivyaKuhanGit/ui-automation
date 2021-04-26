@@ -8,3 +8,5 @@ dist/
 
 .DS_Store
 Thumbs.db
+cypress/videos/
+test/results/e2e-tests-16fb1be325180fd4c75f0fac79ebd05d.xml
