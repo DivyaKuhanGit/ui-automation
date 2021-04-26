@@ -19,7 +19,7 @@ describe('Log in', () => {
 
       console.warn("finished waiting for page")
 
-      driver.findElement(By.className('MuiButtonBase-root')).click();
+      driver.findElement(By.xpath('//*[@id="root"]/div/div[1]/header/div/div/div[1]/button/span[1]')).click();
       driver.findElement(By.id('logonIdentifier')).sendKeys('smart.apprentice.automation@gmail.com');
       driver.findElement(By.id('password')).sendKeys('Smart1@Apprentice');
       driver.findElement(By.id('next')).click();
