@@ -6,7 +6,8 @@
   "scripts": {
     "test": "npx cypress open",
     "test:s": "jest --testPathPattern=specs",
-    "build": "webpack"
+    "build": "webpack",
+    "cy:verify":"cypress verify"
   },
   "dependencies": {
     "chromedriver": "^90.0.0",
