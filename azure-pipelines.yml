@@ -25,18 +25,18 @@ steps:
     npm run cy:verify
   displayName: 'Cypress Verify'
 
- - task: CacheBeta@1
-   inputs:
-        key: npm | $(Agent.OS) | package-lock.json
-        path: /home/vsts/.npm
-        restoreKeys: npm | $(Agent.OS) | package-lock.json
-   displayName: Cache NPM Packages
- - task: CacheBeta@1
-   inputs:
-        key: cypress | $(Agent.OS) | package-lock.json
-        path: /home/vsts/.cache/Cypress
-        restoreKeys: cypress | $(Agent.OS) | package-lock.json
-   displayName: Cache Cypress binary  
+#  - task: CacheBeta@1
+#    inputs:
+#         key: npm | $(Agent.OS) | package-lock.json
+#         path: /home/vsts/.npm
+#         restoreKeys: npm | $(Agent.OS) | package-lock.json
+#    displayName: Cache NPM Packages
+#  - task: CacheBeta@1
+#    inputs:
+#         key: cypress | $(Agent.OS) | package-lock.json
+#         path: /home/vsts/.cache/Cypress
+#         restoreKeys: cypress | $(Agent.OS) | package-lock.json
+#    displayName: Cache Cypress binary  
 
 - task: Npm@2
   inputs:
