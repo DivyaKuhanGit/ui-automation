@@ -4,20 +4,17 @@
   "description": "Automated Tests for smart apprentice UI",
   "main": "main.ts",
   "scripts": {
-    "test": "npx cypress open", 
-    "test:s": "jest --testPathPattern=specs",
+    "test": "npx cypress open",
     "build": "webpack",
-    "cy:verify":"cypress verify",
-    "cy:test":"cypress run"
+    "cy:verify": "cypress verify",
+    "cy:test": "cypress run"
   },
   "dependencies": {
-    "chromedriver": "^90.0.0",
     "cypress": "^7.1.0",
     "cypress-multi-reporters": "^1.5.0",
     "husky": "^3.1.0",
     "jest": "^26.6.3",
     "mocha-junit-reporter": "^2.0.0",
-    "selenium-webdriver": "^4.0.0-beta.3",
     "ts-jest": "^26.5.5",
     "typescript": "^4.2.4",
     "webpack-bundle-analyzer": "^4.4.0",
@@ -25,7 +22,6 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",
-    "@types/selenium-webdriver": "^4.0.12",
     "@types/webpack": "^4.41.26"
   },
   "prettier": {
