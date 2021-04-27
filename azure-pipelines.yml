@@ -19,9 +19,9 @@ steps:
     npm run cy:verify
   displayName: 'Cypress : Verify cypress install'
 
-  - script: |
-    npm run cy:dashboard:link
-  displayName: 'Cypress : Link to dashboard'
+- script: |
+  npm run cy:dashboard:link
+displayName: 'Cypress : Link to dashboard'
 
 #  - task: CacheBeta@1
 #    inputs:
