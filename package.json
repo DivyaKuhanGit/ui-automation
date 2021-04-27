@@ -8,7 +8,7 @@
     "build": "webpack",
     "cy:verify": "cypress verify",
     "cy:test": "cypress run",
-    "cy:test:p": "cypress run --parallel",
+    "cy:test:p": "cypress run --record --parallel",
     "cy:dashboard:link": "cypress run --record --key 4f85ab2a-d481-4f1c-9291-a84c43f16206"
   },
   "dependencies": {
