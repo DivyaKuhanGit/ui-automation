@@ -1,0 +1,10 @@
+{
+  "env": {
+    "env": "local",
+    "user-management-base": "",
+    "tenant-management-base": "",
+    "__TODO__": "move this to secure storage",
+    "admin-user": "",
+    "admin-password": ""
+  }
+}

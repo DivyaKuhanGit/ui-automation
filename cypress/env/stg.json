@@ -1,0 +1,10 @@
+{
+  "env": {
+    "env": "stg",
+    "user-management-base": "https://training-provider.test.smartskillshub.co.uk",
+    "tenant-management-base": "https://control-panel.test.smartskillshub.co.uk",
+    "__TODO__": "move this to secure storage",
+    "admin-user": "smrtapr@gmail.com",
+    "admin-password": "Amdaris123"
+  }
+}
