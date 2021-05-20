@@ -12,7 +12,6 @@
     "cy:dashboard:link": "cypress run --record --key 4f85ab2a-d481-4f1c-9291-a84c43f16206"
   },
   "dependencies": {
-    "cypress": "^7.2.0",
     "cypress-multi-reporters": "^1.5.0",
     "fs-extra": "^9.1.0",
     "husky": "^3.1.0",
@@ -25,7 +24,8 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",
-    "@types/webpack": "^4.41.26"
+    "@types/webpack": "^4.41.26",
+    "cypress": "^7.3.0"
   },
   "prettier": {
     "singleQuote": true,

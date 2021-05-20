@@ -1,14 +1,19 @@
+import { LogInAction, LogInActionsAndStates } from '../pages/actions/LogInActionsAndStates';
 import { MSLogInPage } from '../pages/pages/MSLogInPage';
-import { SinglePageHeader, SupportedLanguige } from '../pages/singlePage/SinglePageHeader';
+import { LeftHandNavigationMenu } from '../pages/singlePage/LeftHandNavigationMenu';
+import {
+  LogInState,
+  SinglePageHeader,
+  SupportedLanguige
+} from '../pages/singlePage/SinglePageHeader';
 
-describe('User Management: Header', () => {
-  const hostUrl = Cypress.env('user-management-base');
-  const logInUrl =
-    'https://smartapprentice002test.b2clogin.com/smartapprentice002test.onmicrosoft.com/b2c_1_signup_signin/oauth2/v2.0/authorize';
+const hostUrl = Cypress.env('user-management-base');
+const logInUrl = Cypress.env('log-in-url');
 
-  // beforeEach(() => {
-  //   cy.visit(hostUrl);
-  // });
+describe('Training Provider Portal: Header', () => {
+  beforeEach(() => {
+    cy.visit(hostUrl);
+  });
 
   afterEach(() => {
     sessionStorage.clear();
@@ -16,36 +21,38 @@ describe('User Management: Header', () => {
     cy.clearLocalStorage();
   });
 
-  it('Header login ', () => {
-    new SinglePageHeader().clickLogin();
+  describe('Log in', () => {
+    it('Header : Click login ==> correct log in url', () => {
+      new SinglePageHeader().clickLogin();
 
-    cy.url().should('include', logInUrl);
+      cy.url().should('include', logInUrl);
+    });
+
+    it('Header : LogIn available before logged in', () => {
+      new LogInActionsAndStates().validateState(LogInState.LOGGED_OUT);
+    });
+
+    it('Menu : log out appears once logged in', () => {
+      new LogInActionsAndStates()
+        .logIn(LogInAction.LOG_IN_AS_ADMIN)
+        .validateState(LogInState.LOGED_IN);
+    });
+
+    it.only('Menu : log in available again after log out', () => {
+      new LogInActionsAndStates()
+        .logIn(LogInAction.LOG_IN_AS_ADMIN)
+        .logIn(LogInAction.LOG_OUT)
+        .validateState(LogInState.LOGGED_OUT);
+    });
   });
 
-  it('Header login ', () => {
-    new SinglePageHeader().clickLogin();
+  describe('Menu : Localization', () => {
+    it('Header: default languige validation', () => {
+      let pageHeader = new SinglePageHeader();
+      pageHeader.verifyLanguige(SupportedLanguige.ENGLISH);
 
-    cy.url().should('include', logInUrl);
-  });
-
-  it.only('Header : default languige validation', () => {
-    cy.visit(hostUrl);
-    cy.wait(3000); // lang change on load
-
-    expect(new SinglePageHeader().getLanguige()).to.equal(SupportedLanguige.ENGLISH);
-  });
-
-  // The page object needs fo be fixed for these 2
-  it.skip('Validate logged out state ', () => {
-    let pageHeder = new SinglePageHeader();
-    expect(pageHeder.isLoggedIn()).to.be.false;
-  });
-
-  it.skip('Validate loged in state', () => {
-    cy.visit(hostUrl);
-    new SinglePageHeader().clickLogin();
-    new MSLogInPage().logInAsAdmin();
-
-    expect(new SinglePageHeader().isLoggedIn()).to.be.true;
+      cy.wait(3000);
+      pageHeader.verifyLanguige(SupportedLanguige.ENGLISH_BRITISH);
+    });
   });
 });

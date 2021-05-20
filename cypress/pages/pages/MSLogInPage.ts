@@ -1,7 +1,7 @@
 export class MSLogInPage {
-  private userName = 'smrtapr@gmail.com';
-  private password = 'Amdaris123';
-  private hostUrl = 'https://ssh-tenantadmin-test-ui.azurewebsites.net';
+  private userName = Cypress.env('admin-user');
+  private password = Cypress.env('admin-password');
+  private hostUrl = Cypress.env('user-management-base');
 
   public logIn(user: string, password: string) {
     cy.visit(this.hostUrl);

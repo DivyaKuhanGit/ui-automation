@@ -1,16 +1,17 @@
+import { LeftHandNavigationMenu } from './LeftHandNavigationMenu';
+
+const LOCALIZATION_LANGUIGE_CONTROL = '.jss3 > .MuiButtonBase-root > .MuiButton-label';
+const LOGIN_BUTTON = '[class="MuiButton-label"]';
+
 export class SinglePageHeader {
-  public isLoggedIn(): boolean {
-    try {
-      cy.get('[style="margin-left: auto;"] > .MuiButtonBase-root > .MuiButton-label').then(
-        ($el) => {
-          return Cypress.dom.isVisible($el);
-        }
-      );
-    } catch (e) {
-      console.log(e);
-      // no log in button, so logged in assuming header is present at all
-      return false;
-    }
+  public validateLoggedOut() {
+    cy.get('[style="margin-left: auto;"] > .MuiButtonBase-root > .MuiButton-label')
+      .invoke('text')
+      .then((text) => {
+        expect(text).to.equal('Login');
+      });
+
+    return this;
   }
 
   public clickLogin(): SinglePageHeader {
@@ -18,21 +19,18 @@ export class SinglePageHeader {
     return this;
   }
 
-  public getLanguige(): SupportedLanguige {
-    const langTag = '.jss3 > .MuiButtonBase-root > .MuiButton-label';
-
+  public verifyLanguige(expectedLang: SupportedLanguige) {
     try {
-      cy.get(langTag)
+      cy.get(LOCALIZATION_LANGUIGE_CONTROL)
         .invoke('text')
         .then((text1) => {
-          console.log(`LAng = ${text1}`);
-          return mapStringToSupportedLang((text1 as any) as string);
+          expect(expectedLang).to.equal(mapStringToSupportedLang(text1 as any as string));
         });
     } catch (e) {
       console.log(e);
     }
 
-    return undefined;
+    return this;
   }
 
   public setLanguige(lang: SupportedLanguige) {
@@ -49,17 +47,18 @@ export enum SupportedLanguige {
   GREEK = 'cy'
 }
 
-// TODO: this is crying for a generic implimentation and a custom exception
-export function mapStringToSupportedLang(mapMe: string): SupportedLanguige {
-  console.log(`Trying to map = ${mapMe}`);
+export enum LogInState {
+  LOGED_IN,
+  LOGGED_OUT
+}
+
+function mapStringToSupportedLang(mapMe: string): SupportedLanguige {
   let enumKey = getEnumKeyByEnumValue(SupportedLanguige, mapMe);
-
-  console.log(`Final: = ${enumKey}`);
-
   return <any>SupportedLanguige[enumKey];
 }
 
-export function getEnumKeyByEnumValue(myEnum: any, enumValue: number | string): string {
+// TODO: move this to shared utils ? in this or separate package
+function getEnumKeyByEnumValue(myEnum: any, enumValue: number | string): string {
   let keys = Object.keys(myEnum).filter((x) => myEnum[x] == enumValue);
   return keys.length > 0 ? keys[0] : '';
 }

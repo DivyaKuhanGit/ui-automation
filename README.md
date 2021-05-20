@@ -9,8 +9,6 @@ npm i
 ```
 cypress will make any locally installed compatible browser available for testing
 
-tested
-
 ## running  the tests
 
 ```
