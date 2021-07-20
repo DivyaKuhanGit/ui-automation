@@ -1,11 +1,6 @@
-import { LogInAction, LogInActionsAndStates } from '../pages/actions/LogInActionsAndStates';
-import { MSLogInPage } from '../pages/pages/MSLogInPage';
-import { LeftHandNavigationMenu } from '../pages/singlePage/LeftHandNavigationMenu';
-import {
-  LogInState,
-  SinglePageHeader,
-  SupportedLanguige
-} from '../pages/singlePage/SinglePageHeader';
+import { LogInAction, LogInActionsAndStates, LogInState } from "../domain/actions/LogInActionsAndStates";
+import { SinglePageHeader, SupportedLanguige } from "../domain/singlePage/SinglePageHeader";
+
 
 const hostUrl = Cypress.env('user-management-base');
 const logInUrl = Cypress.env('log-in-url');
