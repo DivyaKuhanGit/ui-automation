@@ -1,0 +1,14 @@
+{
+  "env": {
+    "env": "stg",
+    "user-management-base": "https://training-provider.test.smartskillshub.co.uk",
+    "tenant-management-base": "https://control-panel.test.smartskillshub.co.uk",
+    "log-in-url":"https://smartapprentice002test.b2clogin.com/smartapprentice002test.onmicrosoft.com/b2c_1_signup_signin/oauth2/v2.0/authorize",
+    "__TODO__": "move this to secure storage",
+    "admin-user": "sa_all_permissions@yahoo.com",
+    "admin-password": "Amdaris123"
+  }
+}
+
+
+

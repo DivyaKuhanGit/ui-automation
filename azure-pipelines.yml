@@ -4,8 +4,9 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-strategy:
-  parallel: 4
+# this is just using up costs till we need it  
+# strategy:
+#   parallel: 4
 
 steps:
 - task: NodeTool@0
