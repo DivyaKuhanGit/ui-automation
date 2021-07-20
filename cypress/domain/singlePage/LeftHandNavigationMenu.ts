@@ -1,7 +1,7 @@
 const MENU_HAMBUGER_BUTTON = '.MuiSvgIcon-root';
 const MENU_X_BUTTON =
   '.MuiPaper-root > .MuiGrid-root > .MuiButtonBase-root > .MuiIconButton-label > .MuiSvgIcon-root > path';
-const LOG_OUT_BUTTON = '.MuiBox-root > .MuiButtonBase-root > .MuiButton-label';
+const LOG_OUT_BUTTON = '.MuiIconButton-label > .MuiSvgIcon-root';
 
 export class LeftHandNavigationMenu {
   public expandMenu(): LeftHandNavigationMenu {
