@@ -17,7 +17,10 @@ describe('Log in', () => {
   // });
 
   it('Side Menu: validate log in/out', () => {
-    cy.clearCookies();
+    //@ts-ignore
+    cy.clearCookies({domain:null});
+    cy.reload(true)
+    
     // sitting on the log out page returns a promise rejection for auth token
     Cypress.on('uncaught:exception', (err, runnable) => {
       // returning false here prevents Cypress from
@@ -25,7 +28,7 @@ describe('Log in', () => {
       return false;
     });
 
-    cy.visit(Cypress.env('log-in-url'));
+    cy.visit(Cypress.env('user-management-base'));
     logInPageActions.logInAsAdmin();
     navMenuActions.verifyLogOutButtonVisible().logOut();
     logInPageActions.verifyOnLogInPage();

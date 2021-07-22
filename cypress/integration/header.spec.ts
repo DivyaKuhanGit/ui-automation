@@ -7,19 +7,21 @@ import { actions as navMenuActions } from '../domain/components/NavigationMenu.d
 
 describe('Training Provider Portal: Header', () => {
   beforeEach(() => {
+    cy.reload(true)
     cy.visit(Cypress.env('user-management-base'));
     logInActions.logInAsAdmin();
   });
 
-  afterEach(() => {
-    navMenuActions.logOut();
-    sessionStorage.clear();
-    cy.clearCookies();
-    cy.clearLocalStorage();
-  });
+  // afterEach(() => {
+  //   navMenuActions.logOut();
+  //   sessionStorage.clear();
+  //   cy.clearCookies();
+  //   cy.clearLocalStorage();
+  // });
 
   describe('Menu : Localization', () => {
     it('Header: default languige validation', () => {
+      
       headerActions.verifyLanguige(SupportedLanguige.ENGLISH);
 
       cy.wait(3000);
