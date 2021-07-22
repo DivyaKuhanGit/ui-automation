@@ -1,5 +1,4 @@
-import { SinglePageHeader } from "../domain/singlePage/SinglePageHeader";
-
+// this can be used to use Cypress UI and easily get path to elements
 
 describe('Sandbox: good for running 1 test and getting paths', () => {
   beforeEach(() => {
@@ -12,14 +11,8 @@ describe('Sandbox: good for running 1 test and getting paths', () => {
     cy.clearLocalStorage();
   });
 
-  describe('Log in', () => {
+  describe.skip('Log in', () => {
     it('In the end, there can be only one.', () => {
-      //new SinglePageHeader().clickLogin();
-      
-
-
-
-
     });
   });
 });

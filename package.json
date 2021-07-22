@@ -7,9 +7,9 @@
     "test": "npx cypress open --env fileConfig=stg",
     "build": "webpack",
     "cy:verify": "cypress verify",
-    "cy:test": "cypress run",
-    "cy:test:p": "cypress run --record --parallel --key 4f85ab2a-d481-4f1c-9291-a84c43f16206 --ci-build-id $BUILD_BUILDNUMBER --group test-group",
-    "cy:dashboard:link": "cypress run --record --key 4f85ab2a-d481-4f1c-9291-a84c43f16206"
+    "cy:test": "cypress run --env fileConfig=stg",
+    "cy:test:p": "cypress run --env fileConfig=stg --record --parallel --key 4f85ab2a-d481-4f1c-9291-a84c43f16206 --ci-build-id $BUILD_BUILDNUMBER --group test-group",
+    "cy:dashboard:link": "cypress run --env fileConfig=stg --record --key 4f85ab2a-d481-4f1c-9291-a84c43f16206"
   },
   "dependencies": {
     "cypress-multi-reporters": "^1.5.0",

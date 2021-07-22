@@ -1,6 +1,6 @@
 import { LeftHandNavigationMenu } from '../singlePage/LeftHandNavigationMenu';
-import { SinglePageHeader } from '../singlePage/SinglePageHeader';
-import { MSLogInPage } from '../pages/MSLogInPage';
+import { SinglePageHeader } from '../components/SinglePageHeader.domain';
+import { MSLogInPage } from '../components/MSLogInPage.domain';
 
 export enum LogInState {
   LOGED_IN,
