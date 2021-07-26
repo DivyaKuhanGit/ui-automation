@@ -1,18 +1,25 @@
-// this can be used to use Cypress UI and easily get path to elements
+import { actions as navMenuActions } from '../domain/components/NavigationMenu.domain';
+import { actions as logInPageActions } from '../domain/components/MSLogInPage.domain';
+import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
 
-describe.skip('Sandbox: good for running 1 test and getting paths', () => {
+describe('Log in', () => {
   beforeEach(() => {
-    cy.visit( Cypress.env('user-management-base'));
+    //@ts-ignore
+    cy.clearCookies({ domain: null });
+    cy.reload(true);
   });
 
-  // afterEach(() => {
-  //   sessionStorage.clear();
-  //   cy.clearCookies();
-  //   cy.clearLocalStorage();
-  // });
+  it('Side Menu: validate log in/out', () => {
+    // sitting on the log out page returns a promise rejection for auth token
+    // Cypress.on('uncaught:exception', (err, runnable) => {
+    //   // returning false here prevents Cypress from failing the test
+    //   return false;
+    // });
 
-  describe.skip('Log in', () => {
-    it('In the end, there can be only one.', () => {
-    });
+    cy.visit(Cypress.env('user-management-base'));
+    logInPageActions.logInAsAdmin();
+    tenantSelectActions.pickTestTenant();
+    tenantSelectActions.submitSelection();
+    navMenuActions.clickBDMButton();
   });
 });

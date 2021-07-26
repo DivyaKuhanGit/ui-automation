@@ -2,22 +2,20 @@ import { actions as logInActions } from '../domain/components/MSLogInPage.domain
 import {
   actions as headerActions,
   SupportedLanguige
-} from '../domain/components/SinglePageHeader.domain';
+} from '../domain/components/Header.domain';
 import { actions as navMenuActions } from '../domain/components/NavigationMenu.domain';
 
 describe('Training Provider Portal: Header', () => {
+
   beforeEach(() => {
-    cy.reload(true)
+    //@ts-ignore
+    cy.clearCookies({ domain: null });
+    cy.reload(true);
+
     cy.visit(Cypress.env('user-management-base'));
     logInActions.logInAsAdmin();
   });
 
-  // afterEach(() => {
-  //   navMenuActions.logOut();
-  //   sessionStorage.clear();
-  //   cy.clearCookies();
-  //   cy.clearLocalStorage();
-  // });
 
   describe('Menu : Localization', () => {
     it('Header: default languige validation', () => {

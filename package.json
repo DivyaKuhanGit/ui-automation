@@ -25,6 +25,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.22",
     "@types/webpack": "^4.41.26",
+    "@types/node-fetch": "2.5.12",
     "cypress": "^7.3.0"
   },
   "prettier": {

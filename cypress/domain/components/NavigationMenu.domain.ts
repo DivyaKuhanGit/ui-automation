@@ -6,8 +6,8 @@ export const elementPaths = {
 };
 
 export const elements = {
-  logOutButton: () => cy.get(elementPaths.logOut, /*{ timeout: 10000 }*/),
-  userManagementButton: () => cy.get(elementPaths.um),
+  logOutButton: () => cy.get(elementPaths.logOut),
+  userManagementButton: () => cy.find('Business Development'),
   bdmButton: () => cy.get(elementPaths.bdm)
 };
 
