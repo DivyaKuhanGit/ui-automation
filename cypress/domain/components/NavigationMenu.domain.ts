@@ -1,14 +1,11 @@
-// FIXME: this is flaky, needs cy-data tags
 export const elementPaths = {
-  logOut: '[data-cy=logOutButton]',
-  um: '.MuiButtonBase-root > .MuiTypography-root',
-  bdm: '.jss6 > .MuiList-root > :nth-child(2)'
+  logOut: '[data-cy=logOutButton]'
 };
 
 export const elements = {
   logOutButton: () => cy.get(elementPaths.logOut),
-  userManagementButton: () => cy.find('Business Development'),
-  bdmButton: () => cy.get(elementPaths.bdm)
+  userManagementButton: () => cy.get('[data-cy=side-menu]').contains('User Management'),
+  bdmButton: () => cy.get('[data-cy=side-menu]').contains('Business Development')
 };
 
 export const actions = {

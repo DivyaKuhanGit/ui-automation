@@ -43,10 +43,5 @@
         }
       }
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "./scripts/precommit.sh"
-    }
   }
 }
