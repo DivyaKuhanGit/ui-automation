@@ -17,7 +17,7 @@ describe('Log in', () => {
     // });
     cy.clearCookies()
     cy.visit(Cypress.env('user-management-base'));
-    cy.wait(4000);
+    cy.wait(3000);
   //  logInPageActions.logInAsAdmin();
     tenantSelectActions.pickTestTenant();
     tenantSelectActions.submitSelection();
