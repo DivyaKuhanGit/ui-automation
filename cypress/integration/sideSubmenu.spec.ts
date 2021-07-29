@@ -20,7 +20,6 @@ describe('Log in', () => {
     });
     cy.clearCookies()
     cy.visit(Cypress.env('user-management-base'));
-    cy.wait(3000);
     //  logInPageActions.logInAsAdmin();
     cy.wait(4000);
       tenantSelectActions.pickTestTenant();
