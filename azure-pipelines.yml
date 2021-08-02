@@ -42,7 +42,8 @@ steps:
 - task: Npm@1
   inputs:
     command: 'custom'
-    customCommand: 'run cy:test:p'
+    # customCommand: 'run cy:test:p'
+    customCommand: 'run cy:test'
   continueOnError: true
   displayName: 'Execute Cypress tests'
 
