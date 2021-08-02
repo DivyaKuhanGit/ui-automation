@@ -13,6 +13,7 @@ export async function executeRestCall<T>(requestContext: RestContext, responseTy
   const requestOptions = {
     method: requestContext.method,
     headers: requestHeaders,
+    // TODO: ??? do we need anything other that JSON ???
     body: JSON.stringify(requestContext.body)
   };
 

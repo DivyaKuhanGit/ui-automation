@@ -20,3 +20,9 @@ module.exports = (on, config) => {
 
   return getConfigurationByFile(file);
 };
+
+// excludes sandbox/personal test files from executing
+// module.exports = (on, config) => {
+//   config.ignoreTestFiles = "**/cypress/integration/*sandbox*.spec.ts";
+//   return config;
+// };

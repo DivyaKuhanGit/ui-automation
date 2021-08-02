@@ -13,3 +13,4 @@ cypress/screenshots/
 test/results/
 
 
+cypress/integration/sandbox.spec.ts

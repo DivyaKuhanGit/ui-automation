@@ -5,7 +5,7 @@ export const elementPaths={
 }
 
 export const elements ={
-  langControl: ()=> cy.get(elementPaths.langSelector)
+  langControl: ()=> cy.get(elementPaths.langSelector),
 }
 
 
@@ -24,10 +24,10 @@ export const actions = {
     return this;
   },
 
-  setLanguige(lang: SupportedLanguige) {
-    // TODO
-    return this;
-  }
+  // setLanguige(lang: SupportedLanguige) {
+  //   // TODO
+  //   return this;
+  // }
 }
 
 export enum SupportedLanguige {
