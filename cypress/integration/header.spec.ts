@@ -13,6 +13,7 @@ describe('Training Provider Portal: Header', () => {
     cy.reload(true);
 
     cy.visit(Cypress.env('user-management-base'));
+    cy.wait(3000);
     logInActions.logInAsAdmin();
   });
 
