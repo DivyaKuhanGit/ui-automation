@@ -10,22 +10,20 @@ describe('Side Submenu', () => {
   });
 
   it('Sidesub Menu1: validate user list sumbenu option', () => {
+    retryTillHappy(logInPageActions.verifyOnLogInPage);
     logInPageActions.logInAsAdmin();
-    cy.wait(4000);
+    retryTillHappy(navMenuActions.verifyLogOutButtonVisible);
+    
     tenantSelectActions.pickTestTenant();
     tenantSelectActions.submitSelection();
     navMenuActions.clickUserManagementButton();
-    sideSubMenuActions
-      .verifyUsersButtonVisible()
-      .clickUserButton();
+    sideSubMenuActions.verifyUsersButtonVisible().clickUserButton();
   });
 
   it('Sidesub Menu2: validate log in/out', () => {
     retryTillHappy(navMenuActions.verifyLogOutButtonVisible);
 
     navMenuActions.clickUserManagementButton();
-    sideSubMenuActions
-      .verifyUserGroupButtonVisible()
-      .clickUserGroup();
+    sideSubMenuActions.verifyUserGroupButtonVisible().clickUserGroup();
   });
 });

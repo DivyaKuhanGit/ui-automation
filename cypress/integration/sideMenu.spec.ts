@@ -35,9 +35,6 @@ describe('Side Menu navigation', () => {
     cy.visit(Cypress.env('user-management-base'));
     
     retryTillHappy(navMenuActions.verifyLogOutButtonVisible);
-    
-    //cy.wait(2000)
-    // logInPageActions.logInAsAdmin();
   });
 
 
