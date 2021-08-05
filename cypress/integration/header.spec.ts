@@ -4,16 +4,13 @@ import {
   SupportedLanguige
 } from '../domain/components/Header.domain';
 import { actions as navMenuActions } from '../domain/components/NavigationMenu.domain';
+import { retryTillHappy } from '../utils/wait.util';
 
 describe('Training Provider Portal: Header', () => {
 
   beforeEach(() => {
-    //@ts-ignore
-    cy.clearCookies({ domain: null });
-    cy.reload(true);
-
     cy.visit(Cypress.env('user-management-base'));
-    cy.wait(3000);
+    retryTillHappy(logInActions.verifyOnLogInPage);
     logInActions.logInAsAdmin();
   });
 
