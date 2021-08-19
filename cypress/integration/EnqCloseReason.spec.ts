@@ -33,11 +33,11 @@ describe('Edit Enquiry Close Reason:', () => {
         BDMSubmenu.clickEditEnqCRButton();
         BDMSubmenu.verifyAddCloseReasonVisible();
         BDMSubmenu.clickAddCloseReason();
+        //Actions to be performed inside dialog box
         cy.focused()
-            .should('have.class', 'MuiInputBase-input MuiFilledInput-input MuiInputBase-inputMarginDense MuiFilledInput-inputMarginDense')
-        //cy.contains('yourval')
+            .get('[id="name"]').should('be.enabled')
             .should('be.focused').type(uniquiID)
         cy.focused().blur();
-        cy.get('[type="submit"]').contains('Save').click();
+        cy.get('[role="dialog"]').get('[type="submit"]').contains('Save').click(); //Clicks Save button of the dialog box.
     });
 });
