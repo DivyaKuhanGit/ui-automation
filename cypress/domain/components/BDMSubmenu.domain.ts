@@ -26,7 +26,7 @@ export const actions = {
         return this;
     },
 
-    clickEditEnqCRButton() {
+    clickEditEnqCloseReasonButton() {
         elements.EditEnqCloseReason().click();
         return this;
     },
@@ -50,12 +50,12 @@ export const actions = {
         return this;
     },
 
-    verifyconfigButtonVisible() {
+    verifyConfigButtonVisible() {
         elements.Configuration().should('be.visible');
         return this;
     },
 
-    verifyconfigEnqButtonVisible() {
+    verifyConfigEnqButtonVisible() {
         elements.ConfigEnquiries().should('be.visible');
        return this;
     }
