@@ -7,14 +7,13 @@ import { uuid } from 'uuidv4';
 
 describe('Edit Enquiry Close Reason:', () => {
     beforeEach('', () => {
-        cy.visit(Cypress.env('user-management-base'));
-        retryTillHappy(Cypress.env('user-management-base').visible);
+        retryTillHappy(logInPageActions.vistUserManagementBase);
         retryTillHappy(logInPageActions.verifyOnLogInPage);
         logInPageActions.logInAsAdmin();
         retryTillHappy(navMenuActions.verifyLogOutButtonVisible);
     });
 
-    it('BDM : Configuration Enquiries', () => {
+    it('BDM : Configuration Enquiries_Add Close Reason', () => {
         tenantSelectActions.pickTestTenant();
         tenantSelectActions.submitSelection();
         navMenuActions.verifyBuisnessDevelopmentButtonVisible();
@@ -33,7 +32,5 @@ describe('Edit Enquiry Close Reason:', () => {
             .should('be.focused').type(uuid())
         cy.focused().blur();
         cy.get('[role="dialog"]').get('[type="submit"]').contains('Save').click(); //Clicks Save button of the dialog box.
-    });
-
-
+    })
 });

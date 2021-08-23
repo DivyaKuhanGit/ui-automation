@@ -3,10 +3,10 @@ import { collapseTextChangeRangesAcrossMultipleVersions, getDefaultLibFilePath }
 export const elements = {
     Enquiries: () => cy.get('[data-cy=side-submenu').contains('Enquiries'),
     Configuration: () => cy.get('[data-cy=side-submenu').contains('Configuration'),
-    ConfigEnquiries: () => cy.get('[data-cy=bdm-configuration-secondary').contains('Enquiries'),
-    EditEnqCloseReason: () => cy.contains('Edit Enquiry Close Reasons'),
-    AddCloseReason: () => cy.contains('Add Close Reason'),
-    EnterCloseReason: () => cy.get('input[type = text]').type('')
+    configEnquiries: () => cy.get('[data-cy=bdm-configuration-secondary').contains('Enquiries'),
+    editEnqCloseReason: () => cy.get('[role="button"]').contains('Edit Enquiry Close Reasons'),
+    addCloseReason: () => cy.get('[type="button"]').contains('Add Close Reason'),
+    enterCloseReason: () => cy.get('input[type = text]').type('')
 
 };
 
@@ -22,26 +22,26 @@ export const actions = {
     },
 
     clickConfigEnqButton() {
-        elements.ConfigEnquiries().click();
+        elements.configEnquiries().click();
         return this;
     },
 
     clickEditEnqCloseReasonButton() {
-        elements.EditEnqCloseReason().click();
+        elements.editEnqCloseReason().click();
         return this;
     },
 
     clickAddCloseReason() {
-        elements.AddCloseReason().click();
+        elements.addCloseReason().click();
         return this;
     },
 
     verifyAddCloseReasonVisible() {
-        elements.AddCloseReason().should('be.visible');
+        elements.addCloseReason().should('be.visible');
         return this;
     },
     verifyEditEnqCloseReasonVisible() {
-        elements.EditEnqCloseReason().should('be.visible');
+        elements.editEnqCloseReason().should('be.visible');
         return this;
     },
 
@@ -56,7 +56,7 @@ export const actions = {
     },
 
     verifyConfigEnqButtonVisible() {
-        elements.ConfigEnquiries().should('be.visible');
+        elements.configEnquiries().should('be.visible');
        return this;
     }
 };
