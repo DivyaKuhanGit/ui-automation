@@ -3,7 +3,8 @@ const password = Cypress.env('admin-password');
 
 export const elements = {
   userNameField: () => cy.get('[id="logonIdentifier"]'),
-  passwordField: () => cy.get('[id="password"]')
+  passwordField: () => cy.get('[id="password"]'),
+  userManagementBase: () => cy.visit(Cypress.env('user-management-base'))
 };
 
 export const actions = {
@@ -24,5 +25,10 @@ export const actions = {
   verifyOnLogInPage: () => {
     cy.url().should('include', Cypress.env('log-in-url'));
     return this;
-  }
+    },
+
+    vistUserManagementBase: () => {
+        elements.userManagementBase();
+      return this;
+    }
 };
