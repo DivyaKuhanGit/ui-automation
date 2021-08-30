@@ -1,43 +1,23 @@
 import { actions as navMenuActions } from '../domain/components/NavigationMenu.domain';
-import { actions as logInPageActions } from '../domain/components/MSLogInPage.domain';
+import { actions as logInActions } from '../domain/components/MSLogInPage.domain';
 import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
 import { actions as umSideActions } from '../domain/components/UMSideSubmenu.domain';
 import { retryTillHappy } from '../utils/wait.util';
 
 describe('Side Menu navigation', () => {
-  // FIXME: sadly, none of this actually worked
-
-  // beforeEach(() => {
-  //   // This clears out third party cookies which forces MS logout state
-  //   // @ts-ignore
-  //   cy.clearCookies({ domain: null });
-  //   cy.clearLocalStorage();
-  //   cy.reload(true);
-
-  //   cy.visit(Cypress.env('user-management-base'));
-  //   logInPageActions.logInAsAdmin();
-  // });
-
-  // afterEach(() => {
-  //   // sitting on the log out page returns a promise rejection for auth token
-  //   Cypress.on('uncaught:exception', (err, runnable) => {
-  //     // returning false here prevents Cypress from failing the test
-  //     return false;
-  //   });
-
-  //   // This clears out third party cookies which forces MS logout state
-  //   //@ts-ignore
-  //   cy.clearCookies({ domain: null });
-  //   cy.reload(true);
-  // });
-
   beforeEach(() => {
     cy.visit(Cypress.env('user-management-base'));
-    
-    retryTillHappy(navMenuActions.verifyLogOutButtonVisible);
+    retryTillHappy(logInActions.verifyOnLogInPage);
+    logInActions.logInAsAdmin();
+    tenantSelectActions.pickTestTenant();
+    tenantSelectActions.submitSelection();
   });
 
-
+  afterEach(() => {
+    navMenuActions.logOut();
+    cy.visit(Cypress.env('user-management-base'));
+    retryTillHappy(logInActions.verifyOnLogInPage);
+  });
 
   it('Validate UserManagement button is available after log in', () => {
     navMenuActions.verifyUserManagementButtonVisible();
@@ -46,7 +26,7 @@ describe('Side Menu navigation', () => {
   it('Validate BDM is only after access to a tenant with correct permissions', () => {
     navMenuActions.verifyBdmButtonDoesNotExist();
     navMenuActions.clickUserManagementButton();
-    umSideActions.clickUserGroup();
+    umSideActions.clickUserGroupButton();
     tenantSelectActions.pickTestTenant();
     tenantSelectActions.submitSelection();
     navMenuActions.verifyBuisnessDevelopmentButtonVisible().clickBuisnessDevelopmentButton();

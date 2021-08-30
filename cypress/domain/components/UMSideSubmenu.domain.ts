@@ -9,13 +9,13 @@ export const actions = {
     return this;
   },
 
-  clickUserGroup() {
+  clickUserGroupButton() {
     elements.UserGroups().click();
     return this;
   },
 
   verifyUsersButtonVisible() {
-    elements.UserGroups().should('be.visible');
+    elements.Users().should('be.visible');
     return this;
   },
 
