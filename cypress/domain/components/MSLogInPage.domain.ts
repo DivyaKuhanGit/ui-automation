@@ -9,7 +9,6 @@ export const elements = {
 
 export const actions = {
   logIn: (user: string, password: string) => {
-    cy.wait(3000);
     elements.userNameField().should('be.visible').should('be.enabled').type(user);
     elements.passwordField().should('be.visible').should('be.enabled').type(password);
 
@@ -25,10 +24,9 @@ export const actions = {
   verifyOnLogInPage: () => {
     cy.url().should('include', Cypress.env('log-in-url'));
     return this;
-    },
+  },
 
-    vistUserManagementBase: () => {
-        elements.userManagementBase();
-      return this;
-    }
+  vistUserManagementBase: () => {
+    return elements.userManagementBase();
+  }
 };
