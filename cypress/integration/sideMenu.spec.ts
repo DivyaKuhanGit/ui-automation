@@ -3,6 +3,7 @@ import { actions as logInPageActions } from '../domain/components/MSLogInPage.do
 import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
 import { actions as umSideActions } from '../domain/components/UMSideSubmenu.domain';
 import { retryTillHappy } from '../utils/wait.util';
+import { actions as logInActions } from '../domain/components/MSLogInPage.domain';
 
 describe('Side Menu navigation', () => {
   // FIXME: sadly, none of this actually worked
@@ -32,12 +33,8 @@ describe('Side Menu navigation', () => {
   // });
 
   beforeEach(() => {
-    cy.visit(Cypress.env('user-management-base'));
-    
-    retryTillHappy(navMenuActions.verifyLogOutButtonVisible);
+    cy.sshLogin();
   });
-
-
 
   it('Validate UserManagement button is available after log in', () => {
     navMenuActions.verifyUserManagementButtonVisible();

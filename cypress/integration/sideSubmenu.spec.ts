@@ -6,14 +6,10 @@ import { retryTillHappy } from '../utils/wait.util';
 
 describe('Side Submenu', () => {
   beforeEach(() => {
-    cy.visit(Cypress.env('user-management-base'));
+    cy.sshLogin();
   });
 
   it('Sidesub Menu1: validate user list sumbenu option', () => {
-    retryTillHappy(logInPageActions.verifyOnLogInPage);
-    logInPageActions.logInAsAdmin();
-    retryTillHappy(navMenuActions.verifyLogOutButtonVisible);
-    
     tenantSelectActions.pickTestTenant();
     tenantSelectActions.submitSelection();
     navMenuActions.clickUserManagementButton();
