@@ -7,6 +7,7 @@
   "main": "main.ts",
   "scripts": {
     "test": "npx cypress open --env fileConfig=stg",
+    "test:local": "npx cypress open --env fileConfig=local",
     "build": "webpack",
     "cy:verify": "cypress verify",
     "cy:test": "cypress run --env fileConfig=stg",
@@ -32,7 +33,7 @@
     "@types/jest": "^26.0.22",
     "@types/node-fetch": "2.5.12",
     "@types/webpack": "^4.41.26",
-    "cypress": "^7.3.0",
+    "cypress": "^8.2.0",
     "cypress-localstorage-commands": "^1.5.0"
   },
   "prettier": {

@@ -1,10 +1,13 @@
 {
   "env": {
-    "env": "local",
-    "user-management-base": "",
-    "tenant-management-base": "",
+    "env": "stg",
+    "user-management-base": "http://localhost:3000",
+    "tenant-management-base": "http://localhost:3000",
+    "api-gateway": "http://localhost",
+    "log-in-url": "https://smartappretice001.b2clogin.com/smartappretice001.onmicrosoft.com/b2c_1_signup_signin/oauth2/v2.0/authorize",
+    "test-tenant-name": "fsdn",
     "__TODO__": "move this to secure storage",
-    "admin-user": "",
-    "admin-password": ""
+    "admin-user": "sa_all_permissions@yahoo.com",
+    "admin-password": "Amdaris123"
   }
 }
