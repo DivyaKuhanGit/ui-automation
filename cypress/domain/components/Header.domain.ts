@@ -1,5 +1,3 @@
-
-
 export const elementPaths={
    langSelector: '.MuiGrid-root > .MuiButtonBase-root > .MuiButton-label'
 }

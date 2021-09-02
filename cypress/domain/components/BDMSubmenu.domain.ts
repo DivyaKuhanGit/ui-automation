@@ -1,62 +1,53 @@
-import { collapseTextChangeRangesAcrossMultipleVersions, getDefaultLibFilePath } from "typescript";
+
+export const elementPaths={
+    bdmSubmenu: '[data-cy=side-submenu]'
+ }
 
 export const elements = {
-    Enquiries: () => cy.get('[data-cy=side-submenu').contains('Enquiries'),
-    Configuration: () => cy.get('[data-cy=side-submenu').contains('Configuration'),
-    configEnquiries: () => cy.get('[data-cy=bdm-configuration-secondary').contains('Enquiries'),
-    editEnqCloseReason: () => cy.get('[role="button"]').contains('Edit Enquiry Close Reasons'),
-    addCloseReason: () => cy.get('[type="button"]').contains('Add Close Reason'),
-    enterCloseReason: () => cy.get('input[type = text]').type('')
-
+    enquiries: () => cy.get(elementPaths.bdmSubmenu).contains('Enquiries'),
+    accounts: () => cy.get(elementPaths.bdmSubmenu).contains('Accounts'),
+    opportunities: () => cy.get(elementPaths.bdmSubmenu).contains('Opportunities'),
+    configuration: () => cy.get(elementPaths.bdmSubmenu).contains('Configuration'),
 };
 
 export const actions = {
-    clickEnqButton() {
-        elements.Enquiries().click();
+    clickEnquiriesButton() {
+        elements.enquiries().click();
         return this;
     },
 
-    clickConfigButton() {
-        elements.Configuration().click();
+    clickAccountsButton() {
+        elements.accounts().click();
         return this;
     },
 
-    clickConfigEnqButton() {
-        elements.configEnquiries().click();
+    clickOpportunitiesButton() {
+        elements.opportunities().click();
         return this;
     },
 
-    clickEditEnqCloseReasonButton() {
-        elements.editEnqCloseReason().click();
+    clickConfigurationButton() {
+        elements.configuration().click();
         return this;
     },
 
-    clickAddCloseReason() {
-        elements.addCloseReason().click();
+    verifyEnquiriesButtonVisible() {
+        elements.enquiries().should('be.visible');
         return this;
     },
 
-    verifyAddCloseReasonVisible() {
-        elements.addCloseReason().should('be.visible');
-        return this;
-    },
-    verifyEditEnqCloseReasonVisible() {
-        elements.editEnqCloseReason().should('be.visible');
+    verifyAccountsButtonVisible() {
+        elements.accounts().should('be.visible');
         return this;
     },
 
-    verifyEnqButtonVisible() {
-        elements.Enquiries().should('be.visible');
-        return this;
+    verifyOpportunitiesButtonVisible() {
+        elements.opportunities().should('be.visible');
+       return this;
     },
 
-    verifyConfigButtonVisible() {
-        elements.Configuration().should('be.visible');
-        return this;
-    },
-
-    verifyConfigEnqButtonVisible() {
-        elements.configEnquiries().should('be.visible');
+    verifyConfigurationButtonVisible() {
+        elements.configuration().should('be.visible');
        return this;
     }
 };
