@@ -6,7 +6,7 @@ import { retryTillHappy } from '../utils/wait.util';
 
 describe('"User Management" Submenu', () => {
   beforeEach(() => {
-    cy.sshLogin();
+    cy.loginTrainingProvider();
   });
 
   it('Validate "Users" sumbenu option', () => {

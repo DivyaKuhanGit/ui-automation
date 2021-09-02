@@ -7,7 +7,7 @@ import {  uuid } from 'uuidv4';
 
 describe('Edit Enquiry Close Reason:', () => {
   beforeEach(() => {
-    cy.sshLogin();
+    cy.loginTrainingProvider();
   });
 
   it('BDM : Configuration Enquiries_Add Close Reason', () => {

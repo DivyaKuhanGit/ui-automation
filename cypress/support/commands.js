@@ -26,31 +26,23 @@
 
 import 'cypress-localstorage-commands';
 import { actions as logInPageActions } from '../domain/components/MSLogInPage.domain';
-import { retryTillHappy } from '../utils/wait.util';
 
-Cypress.Commands.add('sshLogin', () => {
-  // this is horrible but thanks to how B2C works and the lack of API
-  // support from Azure for getting an identity programmatically, plus
-  // cypress' lack of multi-domain support means that this was the only
-  // reliable solution that worked
-  // although cypress clears cookies and local storage, it only does so
-  // for the "main domain" being visited which means that the user remains
-  // logged in when they get automatically redirected and, since we include
-  // a redirect uri, they're then automatically redirected back to the
-  // relevant app they visited
-  logInPageActions
-    .vistUserManagementBase()
+Cypress.Commands.add('sshLogin', (waitForUrl) => {
+  cy.visit(Cypress.env('user-management-base') + '/cypress-login')
+    .get('#logout')
+    .should('be.visible')
+    .click()
+    .get('#login')
+    .should('be.visible')
+    .click();
 
-    // attempt to wait for an arbitrary length of time to allow us to have been
-    // redirected either to the b2c login page, where it waits for input, or
-    // since we're already logged in, automatically redirected back to the app
-    // we started on
-    .wait(1000)
-    .url()
-    .then((u) => {
-      if (!new URL(u).host.includes('smartskillshub.co.uk')) {
-        retryTillHappy(logInPageActions.verifyOnLogInPage);
-        logInPageActions.logInAsAdmin();
-      }
-    });
+  logInPageActions.verifyOnLogInPage();
+  logInPageActions.logInAsAdmin();
+
+  cy.get('#home').should('be.visible').click();
+  cy.url().should('include', waitForUrl);
+});
+
+Cypress.Commands.add('loginTrainingProvider', () => {
+  cy.sshLogin(Cypress.env('user-management-base'));
 });

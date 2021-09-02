@@ -5,7 +5,7 @@ import { retryTillHappy } from '../utils/wait.util';
 
 describe('Training Provider Portal: Header', () => {
   beforeEach(() => {
-    cy.sshLogin();
+    cy.loginTrainingProvider();
   });
 
   describe('Menu : Localization', () => {
