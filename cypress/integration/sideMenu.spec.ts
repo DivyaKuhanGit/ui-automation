@@ -33,7 +33,7 @@ describe('Side Menu navigation', () => {
   // });
 
   beforeEach(() => {
-    cy.sshLogin();
+    cy.loginTrainingProvider();
   });
 
   it('Validate UserManagement button is available after log in', () => {
