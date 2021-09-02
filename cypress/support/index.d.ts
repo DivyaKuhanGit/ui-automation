@@ -8,6 +8,6 @@ declare namespace Cypress {
        * @example
        * cy.sshLogin()
        */
-       sshLogin(): Chainable<any>
+       loginTrainingProvider(): Chainable<any>
     }
   }

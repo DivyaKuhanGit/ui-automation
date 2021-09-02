@@ -26,7 +26,7 @@ describe('"User Management" Submenu', () => {
 
 describe('"Buisness Development" Submenu', () => {
   beforeEach(() => {
-    cy.sshLogin();
+    cy.loginTrainingProvider();
 
     // get to BDM submenu
     tenantSelectActions.pickTestTenant();

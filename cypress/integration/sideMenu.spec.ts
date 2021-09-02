@@ -3,32 +3,6 @@ import { actions as tenantSelectActions } from '../domain/components/TenantSelec
 import { actions as umSideActions } from '../domain/components/UMSideSubmenu.domain';
 
 describe('Side Menu navigation', () => {
-  // FIXME: sadly, none of this actually worked
-
-  // beforeEach(() => {
-  //   // This clears out third party cookies which forces MS logout state
-  //   // @ts-ignore
-  //   cy.clearCookies({ domain: null });
-  //   cy.clearLocalStorage();
-  //   cy.reload(true);
-
-  //   cy.visit(Cypress.env('user-management-base'));
-  //   logInPageActions.logInAsAdmin();
-  // });
-
-  // afterEach(() => {
-  //   // sitting on the log out page returns a promise rejection for auth token
-  //   Cypress.on('uncaught:exception', (err, runnable) => {
-  //     // returning false here prevents Cypress from failing the test
-  //     return false;
-  //   });
-
-  //   // This clears out third party cookies which forces MS logout state
-  //   //@ts-ignore
-  //   cy.clearCookies({ domain: null });
-  //   cy.reload(true);
-  // });
-
   beforeEach(() => {
     cy.loginTrainingProvider();
   });
@@ -55,5 +29,4 @@ describe('Side Menu navigation', () => {
 
     navMenuActions.logOut();
   });
-
 });
