@@ -1,16 +1,16 @@
-export const elementPaths = {
-  langSelector: '.MuiGrid-root > .MuiButtonBase-root > .MuiButton-label'
-};
+export const elementPaths={
+   langSelector: '.MuiGrid-root > .MuiButtonBase-root > .MuiButton-label'
+}
 
-export const elements = {
-  langControl: () => cy.get(elementPaths.langSelector)
-};
+export const elements ={
+  langControl: ()=> cy.get(elementPaths.langSelector),
+}
+
 
 export const actions = {
-  verifyLanguige(expectedLang: SupportedLanguige) {
+ verifyLanguige(expectedLang: SupportedLanguige) {
     try {
-      elements
-        .langControl()
+      elements.langControl()
         .invoke('text')
         .then((text1) => {
           expect(expectedLang).to.equal(mapStringToSupportedLang(text1 as any as string));
@@ -20,13 +20,13 @@ export const actions = {
     }
 
     return this;
-  }
+  },
 
   // setLanguige(lang: SupportedLanguige) {
   //   // TODO
   //   return this;
   // }
-};
+}
 
 export enum SupportedLanguige {
   ENGLISH = 'en',

@@ -24,5 +24,25 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-import 'cypress-localstorage-commands'
-import 'cypress-wait-until';
+import 'cypress-localstorage-commands';
+import { actions as logInPageActions } from '../domain/components/MSLogInPage.domain';
+
+Cypress.Commands.add('sshLogin', (waitForUrl) => {
+  cy.visit(Cypress.env('user-management-base') + '/cypress-login')
+    .get('#logout')
+    .should('be.visible')
+    .click()
+    .get('#login')
+    .should('be.visible')
+    .click();
+
+  logInPageActions.verifyOnLogInPage();
+  logInPageActions.logInAsAdmin();
+
+  cy.get('#home').should('be.visible').click();
+  cy.url().should('include', waitForUrl);
+});
+
+Cypress.Commands.add('loginTrainingProvider', () => {
+  cy.sshLogin(Cypress.env('user-management-base'));
+});

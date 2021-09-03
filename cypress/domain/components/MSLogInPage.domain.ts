@@ -1,5 +1,3 @@
-import { retryTillHappy } from '../../utils/wait.util';
-
 const userName = Cypress.env('admin-user');
 const password = Cypress.env('admin-password');
 
@@ -11,7 +9,6 @@ export const elements = {
 
 export const actions = {
   logIn: (user: string, password: string) => {
-    retryTillHappy(actions.verifyOnLogInPage);
     elements.userNameField().should('be.visible').should('be.enabled').type(user);
     elements.passwordField().should('be.visible').should('be.enabled').type(password);
 
@@ -30,7 +27,6 @@ export const actions = {
   },
 
   vistUserManagementBase: () => {
-    elements.userManagementBase();
-    return this;
+    return elements.userManagementBase();
   }
 };

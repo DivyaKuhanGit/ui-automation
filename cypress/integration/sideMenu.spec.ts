@@ -1,22 +1,10 @@
 import { actions as navMenuActions } from '../domain/components/NavigationMenu.domain';
-import { actions as logInActions } from '../domain/components/MSLogInPage.domain';
 import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
 import { actions as umSideActions } from '../domain/components/UMSideSubmenu.domain';
-import { retryTillHappy } from '../utils/wait.util';
 
 describe('Side Menu navigation', () => {
   beforeEach(() => {
-    cy.visit(Cypress.env('user-management-base'));
-    retryTillHappy(logInActions.verifyOnLogInPage);
-    logInActions.logInAsAdmin();
-    tenantSelectActions.pickTestTenant();
-    tenantSelectActions.submitSelection();
-  });
-
-  afterEach(() => {
-    navMenuActions.logOut();
-    cy.visit(Cypress.env('user-management-base'));
-    retryTillHappy(logInActions.verifyOnLogInPage);
+    cy.loginTrainingProvider();
   });
 
   it('Validate UserManagement button is available after log in', () => {
@@ -26,7 +14,7 @@ describe('Side Menu navigation', () => {
   it('Validate BDM is only after access to a tenant with correct permissions', () => {
     navMenuActions.verifyBdmButtonDoesNotExist();
     navMenuActions.clickUserManagementButton();
-    umSideActions.clickUserGroupButton();
+    umSideActions.clickUserGroup();
     tenantSelectActions.pickTestTenant();
     tenantSelectActions.submitSelection();
     navMenuActions.verifyBuisnessDevelopmentButtonVisible().clickBuisnessDevelopmentButton();
