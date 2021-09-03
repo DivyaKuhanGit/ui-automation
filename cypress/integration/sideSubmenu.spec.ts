@@ -10,17 +10,22 @@ describe('"User Management" Submenu', () => {
   });
 
   it('Validate "Users" sumbenu option', () => {
-    tenantSelectActions.pickTestTenant();
-    tenantSelectActions.submitSelection();
+    tenantSelectActions
+      .pickTestTenant()
+      .submitSelection();
     navMenuActions.clickUserManagementButton();
-    sideSubMenuActions.verifyUsersButtonVisible().clickUserButton();
+    sideSubMenuActions
+      .verifyUsersButtonVisible()
+      .clickUserButton();
   });
 
   it('Validate "User Groups" sumbenu option', () => {
     retryTillHappy(navMenuActions.verifyLogOutButtonVisible);
 
     navMenuActions.clickUserManagementButton();
-    sideSubMenuActions.verifyUserGroupButtonVisible().clickUserGroup();
+    sideSubMenuActions
+      .verifyUserGroupButtonVisible()
+      .clickUserButton();
   });
 });
 
@@ -29,28 +34,33 @@ describe('"Buisness Development" Submenu', () => {
     cy.loginTrainingProvider();
 
     // get to BDM submenu
-    tenantSelectActions.pickTestTenant();
-    tenantSelectActions.submitSelection();
-    navMenuActions.clickBuisnessDevelopmentButton();
+    tenantSelectActions
+      .pickTestTenant()
+      .submitSelection();
+    navMenuActions
+      .clickBuisnessDevelopmentButton();
   });
 
   it('Validate "Enquiries" sumbenu option', () => {
-    bdmSideSubMenuActions.verifyEnquiriesButtonVisible();
-    bdmSideSubMenuActions.clickEnquiriesButton();
+    bdmSideSubMenuActions
+      .verifyEnquiriesButtonVisible()
+      .clickEnquiriesButton();
   });
 
   it('Validate "Accounts" sumbenu option', () => {
-    bdmSideSubMenuActions.verifyAccountsButtonVisible();
-    bdmSideSubMenuActions.clickAccountsButton();
+    bdmSideSubMenuActions
+      .verifyAccountsButtonVisible()
+      .clickAccountsButton();
   });
 
   it('Validate "Opportunities" sumbenu option', () => {
-    bdmSideSubMenuActions.verifyOpportunitiesButtonVisible();
-    bdmSideSubMenuActions.clickOpportunitiesButton();
+    bdmSideSubMenuActions.verifyOpportunitiesButtonVisible()
+      .clickOpportunitiesButton();
   });
 
   it('Validate "Configuration" sumbenu option', () => {
-    bdmSideSubMenuActions.verifyConfigurationButtonVisible();
-    bdmSideSubMenuActions.clickConfigurationButton();
+    bdmSideSubMenuActions
+      .verifyConfigurationButtonVisible()
+      .clickConfigurationButton();
   });
 });

@@ -19,7 +19,7 @@ export const actions = {
       console.log(e);
     }
 
-    return this;
+    return actions;
   },
 
   // setLanguige(lang: SupportedLanguige) {

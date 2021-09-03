@@ -6,11 +6,11 @@ export const elements = {
 export const actions = {
   pickTestTenant: () => {
     elements.testTenant().click();
-    return this;
+    return actions;
   },
 
   submitSelection: () => {
     elements.selectButton().click();
-    return this;
+    return actions;
   }
 };

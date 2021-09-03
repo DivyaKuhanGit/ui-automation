@@ -14,42 +14,42 @@ export const actions = {
  //// CLICK actions 
   logOut() {
     elements.logOutButton().click();
-    return this;
+    return actions;
   },
 
   clickUserManagementButton() {
     elements.userManagementButton().click();
-    return this;
+    return actions;
   },
 
   clickBuisnessDevelopmentButton() {
     elements.bdmButton().click();
-    return this;
+    return actions;
   },
 
   //// VERIFY actions  
   verifyLogOutButtonVisible() {
     elements.logOutButton().should('be.visible');
-    return this;
+    return actions;
   },
 
   verifyUserManagementButtonVisible() {
     elements.userManagementButton().should('be.visible');
-    return this;
+    return actions;
   },
 
   verifyBuisnessDevelopmentButtonVisible() {
     elements.bdmButton().should('be.visible');
-    return this;
+    return actions;
   },
 
   verifyBdmButtonDoesNotExist() {
     elements.bdmButton().should('not.exist');
-    return this;
+    return actions;
   },
 
   verifyUserManagementButtonDoesNotExist() {
     elements.userManagementButton().should('not.exist');
-    return this;
+    return actions;
   }
 };

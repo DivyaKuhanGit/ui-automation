@@ -9,12 +9,12 @@ export const elements = {
 export const actions = {
   clickCreateNewUserGroupButton() {
     elements.createNewUserGroupButton().click();
-    return this;
+    return actions;
   },
 
   typyIntoNameField: (newName: string) => {
     elements.userGroupNameFiled().type(newName);
-    return this;
+    return actions;
   },
 
   selectFromTypeDropDown: (userGroupType: UserGroupType) => {
@@ -23,7 +23,7 @@ export const actions = {
 
     clickLiByEnumValue(listLink, userGroupType);
 
-    return this;
+    return actions;
   }
 };
 

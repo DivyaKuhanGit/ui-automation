@@ -2,26 +2,26 @@ import { findTableElementByContainingText } from '../../utils/selector.util';
 
 export const elements = {
   createNewGroupButton: () => cy.contains('Create new group'),
-  groupList: () => cy.get('[class="MuiTableBody-root"]'),
+  groupTable: () => cy.get('[class="MuiTableBody-root"]'),
   nextPage: () => cy.get('.MuiTablePagination-actions > [tabindex="0"]')
 };
 
 export const actions = {
   clickCreateGroup() {
     elements.createNewGroupButton().click();
-    return this;
+    return actions;
   },
 
   getGroupByName(name: string) {
     console.log('starting to search');
     do {
       try {
-        return findTableElementByContainingText(elements.groupList, name);
-        //return elements.groupList().find(name);
+        return findTableElementByContainingText(elements.groupTable, name);
       } catch (e) {
         actions.clickNextPage();
       }
     } while (actions.isNextPageAvailable());
+    return undefined;
   },
 
   isNextPageAvailable(): boolean {

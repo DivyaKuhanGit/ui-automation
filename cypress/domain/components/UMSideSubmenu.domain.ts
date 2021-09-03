@@ -6,21 +6,21 @@ export const elements = {
 export const actions = {
   clickUserButton() {
     elements.Users().click();
-    return this;
+    return actions;
   },
 
   clickUserGroupButton() {
     elements.UserGroups().click();
-    return this;
+    return actions;
   },
 
   verifyUsersButtonVisible() {
     elements.Users().should('be.visible');
-    return this;
+    return actions;
   },
 
   verifyUserGroupButtonVisible() {
     elements.UserGroups().should('be.visible');
-    return this;
+    return actions;
   }
 };

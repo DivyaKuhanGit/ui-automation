@@ -16,19 +16,20 @@ export function clickLiByEnumValue(cyGetElement: Function, enumStringValue: stri
 }
 
 
-export function findTableElementByContainingText(cyGetElement: Function, containsString: string) {
-  let elementNotFound = true;
+export function findTableElementByContainingText(cyGetElement: Function, containsString: string){
   cyGetElement()
     .find('tr')
     .each(($el: { text: () => string; click: () => void; }) => {
       console.log(`Looking at : ${$el.text()}`)
       if ($el.text() === containsString.trim()) {
-        elementNotFound = false;
         return $el;
       }
     })
-    .then(() => {
-      if (elementNotFound) {
+    .then(($el: any) => {
+      if ($el){
+        return $el;
+      }
+      else  {
         throw new Error(`Failed to find <tr> element with value "${containsString}"`);
       }
     });
