@@ -1,9 +1,9 @@
-import { actions as logInPageActions } from '../domain/components/MSLogInPage.domain';
 import { actions as navMenuActions } from '../domain/components/NavigationMenu.domain';
 import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
-import { actions as bdmSumbenuActions } from '../domain/components/BDMSubmenu.domain';
-import { retryTillHappy } from '../utils/wait.util';
-import { uuid } from 'uuidv4';
+import { actions as bdmSumbenuActions } from '../domain/components/BdmSubmenu.domain';
+import {actions as bdmConfigMenuActions} from '../domain/components/EmquiryConfigurationMenu.domain'
+import {actions as configMenuActions} from '../domain/components/ConfigurationMenu.domain'
+import {  uuid } from 'uuidv4';
 
 describe('Edit Enquiry Close Reason:', () => {
   beforeEach(() => {
@@ -11,21 +11,33 @@ describe('Edit Enquiry Close Reason:', () => {
   });
 
   it('BDM : Configuration Enquiries_Add Close Reason', () => {
+    //                  get to configuration menu
+
+    // select test tenant
     tenantSelectActions.pickTestTenant();
     tenantSelectActions.submitSelection();
+
+    // open BDM module
     navMenuActions.verifyBuisnessDevelopmentButtonVisible();
     navMenuActions.clickBuisnessDevelopmentButton();
-    bdmSumbenuActions.verifyConfigButtonVisible();
-    bdmSumbenuActions.clickConfigButton();
-    retryTillHappy(bdmSumbenuActions.verifyConfigEnqButtonVisible);
-    bdmSumbenuActions.clickConfigEnqButton();
-    bdmSumbenuActions.verifyEditEnqCloseReasonVisible();
-    bdmSumbenuActions.clickEditEnqCloseReasonButton();
-    bdmSumbenuActions.verifyAddCloseReasonVisible();
-    bdmSumbenuActions.clickAddCloseReason();
+
+    // access configuration in bdm
+    bdmSumbenuActions.verifyConfigurationButtonVisible();
+    bdmSumbenuActions.clickConfigurationButton();
+
+    // access configure enquiries
+    configMenuActions.clickEnquiries();
+    
+    // Actual Enquiry Config screen navigation
+    bdmConfigMenuActions.verifyEditEnqCloseReasonVisible();
+    bdmConfigMenuActions.clickEditEnqCloseReasonButton();
+    bdmConfigMenuActions.verifyAddCloseReasonVisible();
+    bdmConfigMenuActions.clickAddCloseReason();
+
     //Actions to be performed inside dialog box
     cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(uuid());
     cy.focused().blur();
-    cy.get('[role="dialog"]').get('[type="submit"]').contains('Save').click(); //Clicks Save button of the dialog box.
+    //Clicks Save button of the dialog box.
+    cy.get('[role="dialog"]').get('[type="submit"]').contains('Save').click(); 
   });
 });

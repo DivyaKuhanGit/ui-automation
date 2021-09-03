@@ -1,5 +1,3 @@
-import { verify } from 'cypress/types/sinon';
-
 export const elementPaths = {
   logOut: '[data-cy=logOutButton]',
   sideMenu: '[data-cy=side-menu]'
