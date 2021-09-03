@@ -2,7 +2,6 @@ import { actions as logInActions } from '../domain/components/MSLogInPage.domain
 import { actions as headerActions, SupportedLanguige } from '../domain/components/Header.domain';
 import { actions as navMenuActions } from '../domain/components/NavigationMenu.domain';
 import { retryTillHappy } from '../utils/wait.util';
-import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
 
 describe('Training Provider Portal: Header', () => {
   beforeEach(() => {

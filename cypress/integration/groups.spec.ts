@@ -27,17 +27,22 @@ describe('Groups: ', () => {
   // });
 
   it('Group permissions', () => {
-    const newGroupId = `automation-${v4()}`;
+    //const newGroupId = `automation-${v4()}`;
+    const newGroupId = "???";
 
     // create new group
-    userGroupMainViewActions.clickCreateGroup();
-    userCreateFlowPageActions.typyIntoNameField(newGroupId);
-    userCreateFlowPageActions.selectFromTypeDropDown(UserGroupType.EMPLOYER);
-    userCreateFlowPageActions.clickCreateNewUserGroupButton();
+    // userGroupMainViewActions.clickCreateGroup();
+    // userCreateFlowPageActions.typyIntoNameField(newGroupId);
+    // userCreateFlowPageActions.selectFromTypeDropDown(UserGroupType.EMPLOYER);
+    // userCreateFlowPageActions.clickCreateNewUserGroupButton();
 
     // verify new group in list
     primaryMenuActions.clickUserManagementButton();
     secondaryMenuActions.verifyUserGroupButtonVisible();
     secondaryMenuActions.clickUserGroupButton();
+
+    userGroupMainViewActions.getGroupByName(newGroupId).then((x) => {
+      console.log('TADA: ' + x.text());
+    });
   });
 });
