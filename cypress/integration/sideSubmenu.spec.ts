@@ -2,7 +2,6 @@ import { actions as navMenuActions } from '../domain/components/NavigationMenu.d
 import { actions as sideSubMenuActions } from '../domain/components/UMSideSubmenu.domain';
 import { actions as bdmSideSubMenuActions } from '../domain/components/BdmSubmenu.domain';
 import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
-import { retryTillHappy } from '../utils/wait.util';
 
 describe('"User Management" Submenu', () => {
   beforeEach(() => {
@@ -10,22 +9,14 @@ describe('"User Management" Submenu', () => {
   });
 
   it('Validate "Users" sumbenu option', () => {
-    tenantSelectActions
-      .pickTestTenant()
-      .submitSelection();
+    tenantSelectActions.pickTestTenant().submitSelection();
     navMenuActions.clickUserManagementButton();
-    sideSubMenuActions
-      .verifyUsersButtonVisible()
-      .clickUserButton();
+    sideSubMenuActions.verifyUsersButtonVisible().clickUserButton();
   });
 
   it('Validate "User Groups" sumbenu option', () => {
-    retryTillHappy(navMenuActions.verifyLogOutButtonVisible);
-
-    navMenuActions.clickUserManagementButton();
-    sideSubMenuActions
-      .verifyUserGroupButtonVisible()
-      .clickUserButton();
+    navMenuActions.verifyLogOutButtonVisible().clickUserManagementButton();
+    sideSubMenuActions.verifyUserGroupButtonVisible().clickUserButton();
   });
 });
 
@@ -34,33 +25,23 @@ describe('"Buisness Development" Submenu', () => {
     cy.loginTrainingProvider();
 
     // get to BDM submenu
-    tenantSelectActions
-      .pickTestTenant()
-      .submitSelection();
-    navMenuActions
-      .clickBuisnessDevelopmentButton();
+    tenantSelectActions.pickTestTenant().submitSelection();
+    navMenuActions.clickBuisnessDevelopmentButton();
   });
 
   it('Validate "Enquiries" sumbenu option', () => {
-    bdmSideSubMenuActions
-      .verifyEnquiriesButtonVisible()
-      .clickEnquiriesButton();
+    bdmSideSubMenuActions.verifyEnquiriesButtonVisible().clickEnquiriesButton();
   });
 
   it('Validate "Accounts" sumbenu option', () => {
-    bdmSideSubMenuActions
-      .verifyAccountsButtonVisible()
-      .clickAccountsButton();
+    bdmSideSubMenuActions.verifyAccountsButtonVisible().clickAccountsButton();
   });
 
   it('Validate "Opportunities" sumbenu option', () => {
-    bdmSideSubMenuActions.verifyOpportunitiesButtonVisible()
-      .clickOpportunitiesButton();
+    bdmSideSubMenuActions.verifyOpportunitiesButtonVisible().clickOpportunitiesButton();
   });
 
   it('Validate "Configuration" sumbenu option', () => {
-    bdmSideSubMenuActions
-      .verifyConfigurationButtonVisible()
-      .clickConfigurationButton();
+    bdmSideSubMenuActions.verifyConfigurationButtonVisible().clickConfigurationButton();
   });
 });
