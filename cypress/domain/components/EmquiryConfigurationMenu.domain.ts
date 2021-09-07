@@ -7,8 +7,7 @@ export const elementPaths={
     addCloseReason: () => cy.get('[type="button"]').contains('Add Close Reason'),
     enterCloseReason: () => cy.get('input[type = text]'),
     loadMore: () => cy.get('[data-cy="enquiry-close-reasons-load-more-button"]').contains('Load more'),
-     closeReasonitems: () => cy.get('[data-cy=enquiry-close-reasons-items]').get('ul').children('.MuiListItem-container').children(),
-     childReason: () => cy.get('ul').children('.MuiListItem-container')
+    closeReasonitems: () => cy.get('[data-cy=enquiry-close-reasons-items]')
  };
 
 export const actions = {
@@ -26,13 +25,9 @@ export const actions = {
         elements.loadMore().click();
         return this;
     },
-    verifyChildReasonVisible() {
-        elements.childReason().children();
-        return this;
-    },
     verifycloseReasonItemsVisible() {
         elements.closeReasonitems().should('be.visible');
-        return this;
+        return actions;
     },
 
     verifyLoadMoreVisible() {
