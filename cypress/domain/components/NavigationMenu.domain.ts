@@ -38,6 +38,11 @@ export const actions = {
     return actions;
   },
 
+  verifyUserManagementDoesntExist() {
+    elements.userManagementButton().should('not.exist');
+    return actions;
+  },
+
   verifyBuisnessDevelopmentButtonVisible() {
     elements.bdmButton().should('be.visible');
     return actions;

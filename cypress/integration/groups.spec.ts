@@ -83,6 +83,7 @@ export function navigateToGroupLisitingPage() {
 
 export function searchForGroupByName(groupName: string) {
   userGroupElements.searchBox().type(`${groupName}`).click();
+  // this is flaky
   cy.wait(1000);
   userGroupElements.searchBox().type('{enter}');
 }

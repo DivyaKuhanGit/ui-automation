@@ -6,16 +6,17 @@ import { actions as tenantSelectActions } from '../domain/components/TenantSelec
 describe('"User Management" Submenu', () => {
   beforeEach(() => {
     cy.loginTrainingProvider();
+
+    // Get to user management module
+    tenantSelectActions.pickTestTenant().submitSelection();
+    navMenuActions.clickUserManagementButton();
   });
 
   it('Validate "Users" sumbenu option', () => {
-    tenantSelectActions.pickTestTenant().submitSelection();
-    navMenuActions.clickUserManagementButton();
     sideSubMenuActions.verifyUsersButtonVisible().clickUserButton();
   });
 
   it('Validate "User Groups" sumbenu option', () => {
-    navMenuActions.verifyLogOutButtonVisible().clickUserManagementButton();
     sideSubMenuActions.verifyUserGroupButtonVisible().clickUserButton();
   });
 });
