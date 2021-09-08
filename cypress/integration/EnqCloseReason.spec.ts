@@ -28,6 +28,12 @@ describe('Edit Enquiry Close Reason:', () => {
     //cy.get('[data-cy=enquiry-close-reasons-load-more-button]').as('loadMore');
     let testValueText = '1ff47060-7f12-43b9-b68c-98129989468b';
 
+    let body: object = {};
+    cy.intercept('/business-development/enquiry-close-reasons?page=0', (request) => {
+      request.continue((response) => {
+        body = response.body;
+      });
+    }).as('resp');
     // Actual Enquiry Config screen navigation
     bdmConfigMenuActions.verifyEditEnqCloseReasonVisible();
     bdmConfigMenuActions.clickEditEnqCloseReasonButton();
@@ -42,47 +48,49 @@ describe('Edit Enquiry Close Reason:', () => {
 
     const loadMoreSelector = '[data-cy=enquiry-close-reasons-load-more-button]';
     const enqItemList = '[data-cy=enquiry-close-reasons-items]';
-    const scrollableSelector =
-      '[style="height: 100%; display: flex;"] > .MuiGrid-direction-xs-column';
 
-    let notDone: boolean = true;
-    let found: boolean;
-    let foundCy: JQuery<HTMLElement>;
-    do {
-      cy.log('in do while loop');
-
-      let found = isElementThere(enqItemList, testValueText);
-
-      if (!found) {
-        cy.get(scrollableSelector).scrollTo('bottom');
-        cy.wait(500);
-
-        if (isButtonClickable(loadMoreSelector)) {
-          cy.log(`CLINCKING LOAD MORE`);
-          cy.get(loadMoreSelector).click();
-        } else {
-          cy.log('Button not clickable!!!!');
-          found = false;
-          notDone = false;
-        }
+    // the idea for this comes from https://stackoverflow.com/questions/67583714/cypress-how-to-scroll-a-dropdown-to-find-item
+    function loadAllPages(pages, level = 0) {
+      if (level > 20 || pages > 20) {
+        throw 'Exceeded recursion depth';
       }
-    } while (notDone && !found);
 
-    cy.log(`got out of loop`);
-    if (found) {
-      console.log(`Found!!!! ${foundCy.text()}`);
+      if (level >= pages) {
+        return;
+      }
+
+      return (
+        cy
+          // thankfully cypress doesn't require that we scroll this element in to view first, it
+          // appears to do that automatically
+          .get('button:not([disabled])[data-cy=enquiry-close-reasons-load-more-button]')
+          .then((e) => {
+            cy.wrap(e).click();
+
+            // recusion, boooooo
+            // this gets significantly slower on each iteration so is not an ideal solution
+            return loadAllPages(pages, level + 1);
+          })
+      );
     }
+
+    cy.wait('@resp') // wait for the request to the api to get the first page of enquiry close reasons
+      .then((r) => {
+        const totalItems = body.totalItems;
+        const pages = Math.floor(totalItems / 10); // calculate the total number of pages we're going to need
+        loadAllPages(pages);
+
+        // now that all the pages are loaded, check that the element we just added is present
+        cy.get(enqItemList).contains(testValueText);
+      });
   });
 });
 
-function isButtonClickable(selector: string): boolean {
-  let isEnabled: boolean;
-  cy.get(selector).then(($btn) => {
-    isEnabled = !$btn.is(':disabled');
-    cy.log('inside is enabled');
+function isButtonClickable(selector: string) {
+  return cy.get(selector).then(($btn) => {
+    let isEnabled = !$btn.prop('disabled');
+    return isEnabled;
   });
-  cy.log('Just before exit from is enabled');
-  return isEnabled;
 }
 
 function isElementThere(listSelector: string, containingText: String): boolean {
