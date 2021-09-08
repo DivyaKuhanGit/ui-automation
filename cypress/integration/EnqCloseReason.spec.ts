@@ -3,161 +3,96 @@ import { actions as tenantSelectActions } from '../domain/components/TenantSelec
 import { actions as bdmSumbenuActions } from '../domain/components/BdmSubmenu.domain';
 import { actions as bdmConfigMenuActions } from '../domain/components/EmquiryConfigurationMenu.domain';
 import { actions as configMenuActions } from '../domain/components/ConfigurationMenu.domain';
-import { elements as enquiryConfigmenuElements } from '../domain/components/EmquiryConfigurationMenu.domain';
-//import { actions as enquiryConfigActions } from '../domain/components/EmquiryConfigurationMenu.domain';
-import { uuid } from 'uuidv4';
-const randomVal = uuid();
-
-function findItem(Value) {
-    function findInpage(pageDisplay) {
-        let found = false
-        cy.get('[data-cy=enquiry-close-reasons-load-more-button]').as('loadMore')
-        cy.get("@loadMore").then($btn => {
-            if($btn.is(":disabled")) {
-                return false;
-            } else {
-                cy.get('@loadMore').click();
-                cy.get('[data-cy=enquiry-close-reasons-items]').get('.MuiListItem-container>.MuiListItem-root>.MuiListItemText-root>.MuiTypography-root').get('[title]').each(itemName1 => {
-                    const itemText = itemName1.text();
-                    //console.log(itemText);
-                    if (itemText === Value) {
-                        found = true
-                        //return false;
-                    }
-                }).then(() => {
-                    if (!found) {
-                        findInpage(pageDisplay);
-                    }
-                });
-            }
-        })
-    } findInpage(0)
-}
 
 describe('Edit Enquiry Close Reason:', () => {
-    beforeEach(() => {
-        cy.loginTrainingProvider();
-    });
+  beforeEach(() => {
+    cy.loginTrainingProvider();
 
-    //it('BDM : Configuration Enquiries_Add Close Reason', () => {
-    //  //                  get to configuration menu
+    // select test tenant
+    tenantSelectActions.pickTestTenant();
+    tenantSelectActions.submitSelection();
 
-    //  // select test tenant
-    //  tenantSelectActions.pickTestTenant();
-    //  tenantSelectActions.submitSelection();
+    // open BDM module
+    navMenuActions.verifyBuisnessDevelopmentButtonVisible();
+    navMenuActions.clickBuisnessDevelopmentButton();
 
-    //  // open BDM module
-    //  navMenuActions.verifyBuisnessDevelopmentButtonVisible();
-    //  navMenuActions.clickBuisnessDevelopmentButton();
+    // access configuration in bdm
+    bdmSumbenuActions.verifyConfigurationButtonVisible();
+    bdmSumbenuActions.clickConfigurationButton();
 
-    //  // access configuration in bdm
-    //  bdmSumbenuActions.verifyConfigurationButtonVisible();
-    //  bdmSumbenuActions.clickConfigurationButton();
+    // access configure enquiries
+    configMenuActions.clickEnquiries();
+  });
 
-    //  // access configure enquiries
-    //  configMenuActions.clickEnquiries();
+  it('BDM : Configuration Enquiries_Add Close Reason', () => {
+    //cy.get('[data-cy=enquiry-close-reasons-load-more-button]').as('loadMore');
+    let testValueText = '1ff47060-7f12-43b9-b68c-98129989468b';
 
-    //  // Actual Enquiry Config screen navigation
-    //  bdmConfigMenuActions.verifyEditEnqCloseReasonVisible();
-    //  bdmConfigMenuActions.clickEditEnqCloseReasonButton();
-    //  bdmConfigMenuActions.verifyAddCloseReasonVisible();
-    //  bdmConfigMenuActions.clickAddCloseReason();
+    // Actual Enquiry Config screen navigation
+    bdmConfigMenuActions.verifyEditEnqCloseReasonVisible();
+    bdmConfigMenuActions.clickEditEnqCloseReasonButton();
+    // bdmConfigMenuActions.verifyAddCloseReasonVisible();
+    // bdmConfigMenuActions.clickAddCloseReason();
 
-    //  //Actions to be performed inside dialog box
-    //  cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(uuid());
-    //  cy.focused().blur();
-    //  //Clicks Save button of the dialog box.
-    //  cy.get('[role="dialog"]').get('[type="submit"]').contains('Save').click(); 
-    //});
+    // //Actions to be performed inside dialog box
+    // cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(testValueText);
+    // cy.focused().blur();
+    // //Clicks Save button of the dialog box.
+    // cy.get('[role="dialog"]').get('[type="submit"]').contains('Save').click();
 
-    it('BDM : Configuration Enquiries_Add Close Reason', () => {
-        //                  get to configuration menu
+    const loadMoreSelector = '[data-cy=enquiry-close-reasons-load-more-button]';
+    const enqItemList = '[data-cy=enquiry-close-reasons-items]';
+    const scrollableSelector =
+      '[style="height: 100%; display: flex;"] > .MuiGrid-direction-xs-column';
 
-        // select test tenant
-        tenantSelectActions.pickTestTenant();
-        tenantSelectActions.submitSelection();
+    let notDone: boolean = true;
+    let found: boolean;
+    let foundCy: JQuery<HTMLElement>;
+    do {
+      cy.log('in do while loop');
 
-        // open BDM module
-        navMenuActions.verifyBuisnessDevelopmentButtonVisible();
-        navMenuActions.clickBuisnessDevelopmentButton();
+      let found = isElementThere(enqItemList, testValueText);
 
-        // access configuration in bdm
-        bdmSumbenuActions.verifyConfigurationButtonVisible();
-        bdmSumbenuActions.clickConfigurationButton();
+      if (!found) {
+        cy.get(scrollableSelector).scrollTo('bottom');
+        cy.wait(500);
 
-        // access configure enquiries
-        configMenuActions.clickEnquiries();
-
-        // Actual Enquiry Config screen navigation
-        bdmConfigMenuActions.verifyEditEnqCloseReasonVisible();
-        bdmConfigMenuActions.clickEditEnqCloseReasonButton();
-        bdmConfigMenuActions.verifyAddCloseReasonVisible();
-        bdmConfigMenuActions.clickAddCloseReason();
-
-        //Actions to be performed inside dialog box
-        cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(randomVal);
-        cy.focused().blur();
-        //Clicks Save button of the dialog box.
-        //cy.get('[role="dialog"]').get('[type="submit"]').contains('Save').click();
-        //Clicks Cancel Button of the dialog box.
-        cy.get('[data-cy="cancel-button"]').click();
-
-        const orignalVal = "46731764-434e-45e6-a7cc-dc02b92540a8";
-        findItem(orignalVal);
-        if (true) {
-            enquiryConfigmenuElements.closeReasonitems()
-                .contains('li', orignalVal)
-                .find(`button[aria-label*=${orignalVal}]`)
-                .click();
-
-            cy.focused().contains('li', 'Rename').click();
-
-            //Renaming the old Reason to New Name
-            cy.focused().get('[role=dialog]').get('[id="name"]').clear();
-            cy.get('[id="name"]').type('Renamed_' + uuid());
-            cy.get('[role=dialog]').get('[data-cy="submit-button"]').contains('Save').click();
-            //cy.get('[role=dialog]').get('[data-cy="cancel-button"]').contains('Cancel').click();
+        if (isButtonClickable(loadMoreSelector)) {
+          cy.log(`CLINCKING LOAD MORE`);
+          cy.get(loadMoreSelector).click();
+        } else {
+          cy.log('Button not clickable!!!!');
+          found = false;
+          notDone = false;
         }
-        
-    //    describe('Recursion and Pagination', () => {
-    //        it.skip("Recursion", () => {
-    //            function test(index) {
-    //                if (index >= 10) {
-    //                    return false;
-    //                } else {
-    //                    console.log(index);
-    //                    test(++index);
-    //                }
-    //            }
-    //            test(0);
-    //        })
-    //});
+      }
+    } while (notDone && !found);
+
+    cy.log(`got out of loop`);
+    if (found) {
+      console.log(`Found!!!! ${foundCy.text()}`);
+    }
   });
 });
 
+function isButtonClickable(selector: string): boolean {
+  let isEnabled: boolean;
+  cy.get(selector).then(($btn) => {
+    isEnabled = !$btn.is(':disabled');
+    cy.log('inside is enabled');
+  });
+  cy.log('Just before exit from is enabled');
+  return isEnabled;
+}
 
-//function findItem(Value) {
-//function findInpage(index) {
-//    let found = false
-//    cy.get('[data-cy=enquiry-close-reasons-load-more-button]:not(.MuiTouchRipple-root)').as('pages')
-//    cy.get("@pages").its("length").then(len => {
-//        if (index >= len) {
-//            return false;
-//        } else {
-//            cy.get('@pages').eq(index).click();
-//            cy.get('[data-cy=enquiry-close-reasons-items]').get('li').each(itemName1 => {
-//                const itemText = itemName1.text();
-//                console.log(itemText);
-//                if (itemText === Value) {
-//                    found = true
-//                    return false;
-//                }
-//            }).then(() => {
-//                if (!found) {
-//                    findInpage(++index);
-//                }
-//            });
-//        }
-//    })
-//} findInpage(0)
-//}
+function isElementThere(listSelector: string, containingText: String): boolean {
+  cy.get(listSelector)
+    .find('li')
+    .each(($el) => {
+      if ($el.text() === containingText.trim()) {
+        return true;
+      }
+    });
+
+  return false;
+}
