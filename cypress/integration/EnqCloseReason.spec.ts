@@ -8,49 +8,34 @@ import { elements as enquiryConfigmenuElements } from '../domain/components/Emqu
 import { uuid } from 'uuidv4';
 import { hasData } from 'cypress/types/jquery';
 const randomVal = uuid();
-const orignalVal = "46731764-434e-45e6-a7cc-dc02b92540a8";
+const orignalVal = "2f09543e-7f12-4a0b-ae98-7a7d69b4ab53";
 
 
-//Check Element Exist
-export function checkifElementExist(ele) {
-    return new Promise((resolve, reject) => {
-        cy.get('body').then($body => {         //cy.get('[data-cy=enquiry-close-reasons-items]').find(ele).its('length'
-            if ($body.find(ele).length > 0){
-                    //// do task that you want to perform
-                    cy.get(ele).select('100').wait(2000);
-                    resolve(ele);
-                } else {
-                    reject();
-                }
-        });
-    })
-}
+//function findItem(Value) {
+//function findInpage(index) {
+//    let found = false
+//    cy.get('[data-cy=enquiry-close-reasons-load-more-button]').as('loadMore')
+//    cy.get("@loadMore").should('be.enabled').click();//.then(len => {
+//    cy.get('[data-cy=enquiry-close-reasons-items]').get('[title]').each(itemName1 => {
+//                //cy.location().should((loc) => {
+//                //    expect(loc.search).eq(Value)
+//                //}
+//                    const itemText = itemName1.text();
+//                    console.log(itemText);
+//                    if (itemText === Value) {
+//                        found = true
+//                        return false;
+//                    }
+//            }).then(() => {
+//                if (!found) {
+//                    findInpage(++index);
+//                }
+//            });
+//        }
+////    })
+////} 
+//}
 
-
-function findItem(Value) {
-    function findInpage(pageDisplay) {
-        let found = false
-        cy.get('[data-cy=enquiry-close-reasons-load-more-button]').as('loadMore')
-        cy.get("@loadMore").then($btn => {
-            if (cy.get("@loadMore").should('not.be.enabled')) {
-                return false;
-            } else {
-                cy.get('@loadMore').click();
-                cy.get('body').then($body => {   //enquiryConfigmenuElements.closeReasonitems().contains('li',Value).
-                    if ($body.find(`[title=${Value}]`).length > 0) {
-                        found = true;
-                    } else {
-                        found = false;
-                    }
-                }).then(() => {
-                    if (!found) {
-                        findInpage(++pageDisplay);
-                    }
-                });
-            } findInpage(pageDisplay)
-        });
-    } 
-}
 
 describe('Edit Enquiry Close Reason:', () => {
     beforeEach(() => {
@@ -120,22 +105,38 @@ describe('Edit Enquiry Close Reason:', () => {
         //Clicks Cancel Button of the dialog box.
         cy.get('[data-cy="cancel-button"]').click();
 
-        const orignalVal = "46731764-434e-45e6-a7cc-dc02b92540a8";
-        findItem(orignalVal);
-        if (enquiryConfigmenuElements.closeReasonitems().contains('li', orignalVal)) {
-            enquiryConfigmenuElements.closeReasonitems()
-                .contains('li', orignalVal)
-                .find(`button[aria-label*=${orignalVal}]`)
-                .click();
+        const orignalVal = "2e39f2a9-c969-443c-8551-11eb10c0f342";
+        findvalue();
+        function findvalue() {
+                (enquiryConfigmenuElements.closeReasonitems().get('[title]')).each((Title) => {
+                    const item = Title.text();
+                    if (item.match(orignalVal)) {                //.find(orignalVal).length > 0
+                        enquiryConfigmenuElements.closeReasonitems()
+                            .contains('li', orignalVal)
+                            .find(`button[aria-label*=${orignalVal}]`)
+                            .click();
 
-            cy.focused().contains('li', 'Rename').click();
+                        cy.focused().contains('li', 'Rename').click();
 
-            //Renaming the old Reason to New Name
-            cy.focused().get('[role=dialog]').get('[id="name"]').clear(),
-                cy.get('[id="name"]').type('Renamed_' + uuid());
-            cy.get('[role=dialog]').get('[data-cy="submit-button"]').contains('Save').click();
-            //cy.get('[role=dialog]').get('[data-cy="cancel-button"]').contains('Cancel').click();
-        } 
+                        //Renaming the old Reason to New Name
+                        cy.focused().get('[role=dialog]').get('[id="name"]').clear(),
+                            cy.get('[id="name"]').type('Renamed-' + uuid());
+                        //cy.get('[role=dialog]').get('[data-cy="submit-button"]').contains('Save').click();
+                        cy.get('[role=dialog]').get('[data-cy="cancel-button"]').contains('Cancel').click();
+
+                    } else {
+                        cy.get('[data-cy=enquiry-close-reasons-load-more-button]').should('be.enabled').click();
+                        findvalue();
+                    }
+                }).then(() => {
+
+                    findvalue();
+                })
+            
+        }
+            //}).then(() => {
+            //    //findItem(orignalVal);
+            //})
         
         
     //    describe('Recursion and Pagination', () => {
