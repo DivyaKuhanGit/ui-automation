@@ -1,9 +1,7 @@
-import { clickLiByEnumValue } from '../../utils/selector.util';
-
 export const elements = {
-  userGroupNameFiled: () => cy.get('#name'),
-  userGroupTypeDropdown: () => cy.get('#userType'),
-  createNewUserGroupButton: () => cy.get('.MuiButton-label > .MuiTypography-root')
+  userGroupNameFiled: () => cy.get("#name"),
+  userGroupTypeDropdown: () => cy.get("#userType"),
+  createNewUserGroupButton: () => cy.get("[data-cy=create-group-button]").parent(),
 };
 
 export const actions = {
@@ -19,15 +17,12 @@ export const actions = {
 
   selectFromTypeDropDown: (userGroupType: UserGroupType) => {
     elements.userGroupTypeDropdown().click();
-    const listLink = () => cy.get('.MuiPaper-root > .MuiList-root');
-
-    clickLiByEnumValue(listLink, userGroupType);
-
+    cy.contains("li", userGroupType).click();
     return actions;
-  }
+  },
 };
 
 export enum UserGroupType {
-  EMPLOYER = 'Employer',
-  TRAINING_PROVIDER = 'Training Provider'
+  EMPLOYER = "Employer",
+  TRAINING_PROVIDER = "Training Provider",
 }

@@ -1,17 +1,15 @@
-import { findTableElementByContainingText } from '../../utils/selector.util';
-
 export const elements = {
   searchBox: () => cy.get('[aria-autocomplete="list"]'),
-  createNewGroupButton: () => cy.contains('Create new group'),
-  groupTable: () => cy.get('[class="MuiTableBody-root"]'),
-  nextPage: () => cy.get('.MuiTablePagination-actions > [tabindex="0"]')
+  createNewGroupButton: () => cy.contains("Create new group"),
+  groupTable: () => cy.get('[aria-label="table"]'),
+  nextPage: () => cy.get('[title="Next page"]')
 };
 
 export enum GroupItemMenuActions {
-  RENAME = 'Rename group',
-  DELETE_GROUP = 'Delete group',
-  PERMISSIONS = 'Group permissions',
-  USERS = 'Group users'
+  RENAME = "Rename group",
+  DELETE_GROUP = "Delete group",
+  PERMISSIONS = "Group permissions",
+  USERS = "Group users",
 }
 
 export const actions = {
@@ -21,10 +19,10 @@ export const actions = {
   },
 
   getGroupByName(name: string) {
-    console.log('starting to search');
+    console.log("starting to search");
     do {
       try {
-        return findTableElementByContainingText(elements.groupTable, name);
+        return elements.groupTable().contains("li", name);
       } catch (e) {
         actions.clickNextPage();
       }
@@ -34,7 +32,7 @@ export const actions = {
 
   isNextPageAvailable(): boolean {
     elements.nextPage().then((x) => {
-      return !x.is('enabled');
+      return !x.is("enabled");
     });
     return false;
   },
@@ -43,5 +41,5 @@ export const actions = {
     elements.nextPage().then((x) => {
       x.click();
     });
-  }
+  },
 };

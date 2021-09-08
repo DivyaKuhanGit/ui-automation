@@ -1,4 +1,3 @@
-
 export const elementPaths={
     bdmSubmenu: '[data-cy=side-submenu]'
  }
