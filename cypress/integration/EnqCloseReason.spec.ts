@@ -6,32 +6,50 @@ import { actions as configMenuActions } from '../domain/components/Configuration
 import { elements as enquiryConfigmenuElements } from '../domain/components/EmquiryConfigurationMenu.domain';
 //import { actions as enquiryConfigActions } from '../domain/components/EmquiryConfigurationMenu.domain';
 import { uuid } from 'uuidv4';
+import { hasData } from 'cypress/types/jquery';
 const randomVal = uuid();
+const orignalVal = "46731764-434e-45e6-a7cc-dc02b92540a8";
+
+
+//Check Element Exist
+export function checkifElementExist(ele) {
+    return new Promise((resolve, reject) => {
+        cy.get('body').then($body => {         //cy.get('[data-cy=enquiry-close-reasons-items]').find(ele).its('length'
+            if ($body.find(ele).length > 0){
+                    //// do task that you want to perform
+                    cy.get(ele).select('100').wait(2000);
+                    resolve(ele);
+                } else {
+                    reject();
+                }
+        });
+    })
+}
+
 
 function findItem(Value) {
     function findInpage(pageDisplay) {
         let found = false
         cy.get('[data-cy=enquiry-close-reasons-load-more-button]').as('loadMore')
         cy.get("@loadMore").then($btn => {
-            if($btn.is(":disabled")) {
+            if (cy.get("@loadMore").should('not.be.enabled')) {
                 return false;
             } else {
                 cy.get('@loadMore').click();
-                cy.get('[data-cy=enquiry-close-reasons-items]').get('.MuiListItem-container>.MuiListItem-root>.MuiListItemText-root>.MuiTypography-root').get('[title]').each(itemName1 => {
-                    const itemText = itemName1.text();
-                    //console.log(itemText);
-                    if (itemText === Value) {
-                        found = true
-                        //return false;
+                cy.get('body').then($body => {   //enquiryConfigmenuElements.closeReasonitems().contains('li',Value).
+                    if ($body.find(`[title=${Value}]`).length > 0) {
+                        found = true;
+                    } else {
+                        found = false;
                     }
                 }).then(() => {
                     if (!found) {
-                        findInpage(pageDisplay);
+                        findInpage(++pageDisplay);
                     }
                 });
-            }
-        })
-    } findInpage(0)
+            } findInpage(pageDisplay)
+        });
+    } 
 }
 
 describe('Edit Enquiry Close Reason:', () => {
@@ -104,7 +122,7 @@ describe('Edit Enquiry Close Reason:', () => {
 
         const orignalVal = "46731764-434e-45e6-a7cc-dc02b92540a8";
         findItem(orignalVal);
-        if (true) {
+        if (enquiryConfigmenuElements.closeReasonitems().contains('li', orignalVal)) {
             enquiryConfigmenuElements.closeReasonitems()
                 .contains('li', orignalVal)
                 .find(`button[aria-label*=${orignalVal}]`)
@@ -113,11 +131,12 @@ describe('Edit Enquiry Close Reason:', () => {
             cy.focused().contains('li', 'Rename').click();
 
             //Renaming the old Reason to New Name
-            cy.focused().get('[role=dialog]').get('[id="name"]').clear();
-            cy.get('[id="name"]').type('Renamed_' + uuid());
+            cy.focused().get('[role=dialog]').get('[id="name"]').clear(),
+                cy.get('[id="name"]').type('Renamed_' + uuid());
             cy.get('[role=dialog]').get('[data-cy="submit-button"]').contains('Save').click();
             //cy.get('[role=dialog]').get('[data-cy="cancel-button"]').contains('Cancel').click();
-        }
+        } 
+        
         
     //    describe('Recursion and Pagination', () => {
     //        it.skip("Recursion", () => {
