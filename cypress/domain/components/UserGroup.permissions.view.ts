@@ -1,3 +1,6 @@
+export const elements = {
+};
+
 export enum Modules {
   BDM = "business_development",
   UM = "user_management",
