@@ -48,8 +48,8 @@ steps:
   displayName: 'Execute Cypress tests'
 
 - task: PublishBuildArtifacts@1
-  condition: failed() 
-  displayName: "Publish Screenshots of failed tests"
+  condition: succeededOrFailed() 
+  displayName: "Publish Cypress Screenshots"
   inputs:
     PathtoPublish: cypress/screenshots
     ArtifactName: CypressFailedTestScreenshots

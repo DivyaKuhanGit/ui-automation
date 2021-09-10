@@ -1,4 +1,3 @@
-
 export const elementPaths={
     bdmSubmenu: '[data-cy=side-submenu]'
  }
@@ -13,27 +12,27 @@ export const elements = {
 export const actions = {
     clickEnquiriesButton() {
         elements.enquiries().click();
-        return this;
+        return actions;
     },
 
     clickAccountsButton() {
         elements.accounts().click();
-        return this;
+        return actions;
     },
 
     clickOpportunitiesButton() {
         elements.opportunities().click();
-        return this;
+        return actions;
     },
 
     clickConfigurationButton() {
         elements.configuration().click();
-        return this;
+        return actions;
     },
 
     verifyEnquiriesButtonVisible() {
         elements.enquiries().should('be.visible');
-        return this;
+        return actions;
     },
 
     verifyAccountsButtonVisible() {

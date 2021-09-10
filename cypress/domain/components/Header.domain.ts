@@ -1,40 +1,38 @@
-export const elementPaths={
-   langSelector: '.MuiGrid-root > .MuiButtonBase-root > .MuiButton-label'
-}
-
-export const elements ={
-  langControl: ()=> cy.get(elementPaths.langSelector),
-}
-
+export const elements = {
+  langControl: () => cy.get("header").get("button").find('span'),
+};
 
 export const actions = {
- verifyLanguige(expectedLang: SupportedLanguige) {
+  verifyLanguige(expectedLang: SupportedLanguige) {
     try {
-      elements.langControl()
-        .invoke('text')
+      elements
+        .langControl()
+        .invoke("text")
         .then((text1) => {
-          expect(expectedLang).to.equal(mapStringToSupportedLang(text1 as any as string));
+          expect(expectedLang).to.equal(
+            mapStringToSupportedLang(text1 as any as string)
+          );
         });
     } catch (e) {
       console.log(e);
     }
 
-    return this;
+    return actions;
   },
 
   // setLanguige(lang: SupportedLanguige) {
   //   // TODO
   //   return this;
   // }
-}
+};
 
 export enum SupportedLanguige {
-  ENGLISH = 'en',
-  ENGLISH_BRITISH = 'en-GB',
-  FRENCH = 'fr',
-  JAPANESE = 'ja',
-  ROMANIAN = 'ro',
-  GREEK = 'cy'
+  ENGLISH = "en",
+  ENGLISH_BRITISH = "en-GB",
+  FRENCH = "fr",
+  JAPANESE = "ja",
+  ROMANIAN = "ro",
+  GREEK = "cy",
 }
 
 function mapStringToSupportedLang(mapMe: string): SupportedLanguige {
@@ -43,7 +41,10 @@ function mapStringToSupportedLang(mapMe: string): SupportedLanguige {
 }
 
 // TODO: move this to shared utils ? in this or separate package
-function getEnumKeyByEnumValue(myEnum: any, enumValue: number | string): string {
+function getEnumKeyByEnumValue(
+  myEnum: any,
+  enumValue: number | string
+): string {
   let keys = Object.keys(myEnum).filter((x) => myEnum[x] == enumValue);
-  return keys.length > 0 ? keys[0] : '';
+  return keys.length > 0 ? keys[0] : "";
 }

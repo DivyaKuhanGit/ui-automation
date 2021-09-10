@@ -3,7 +3,7 @@ import { actions as tenantSelectActions } from '../domain/components/TenantSelec
 import { actions as bdmSumbenuActions } from '../domain/components/BdmSubmenu.domain';
 import {actions as bdmConfigMenuActions} from '../domain/components/EmquiryConfigurationMenu.domain'
 import {actions as configMenuActions} from '../domain/components/ConfigurationMenu.domain'
-import {  uuid } from 'uuidv4';
+import { v4 } from 'uuid';
 
 describe('Edit Enquiry Close Reason:', () => {
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe('Edit Enquiry Close Reason:', () => {
     bdmConfigMenuActions.clickAddCloseReason();
 
     //Actions to be performed inside dialog box
-    cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(uuid());
+    cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(v4());
     cy.focused().blur();
     //Clicks Save button of the dialog box.
     cy.get('[role="dialog"]').get('[type="submit"]').contains('Save').click(); 
