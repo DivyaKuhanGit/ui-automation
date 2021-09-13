@@ -28,7 +28,7 @@ export const actions = {
     elements.searchBox().type(`${groupName}`).click();
     // this is flaky
     cy.wait(1000);
-    elements.searchBox().type("{enter}");
+    elements.searchBox().type('{enter}');
     return actions;
   },
 
