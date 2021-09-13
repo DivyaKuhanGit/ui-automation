@@ -10,7 +10,7 @@ export const actions = {
     return actions;
   },
 
-  typyIntoNameField: (newName: string) => {
+  typeIntoNameField: (newName: string) => {
     elements.userGroupNameFiled().type(newName);
     return actions;
   },

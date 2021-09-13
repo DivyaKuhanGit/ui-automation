@@ -20,48 +20,34 @@ describe("Groups: ", () => {
   beforeEach(() => {
     cy.loginTrainingProvider();
     tenantSelectActions.pickTestTenant().submitSelection();
-    navigateToGroupLisitingPage();
+    navigateToGroupListingPage();
   });
 
   // TODO: this test is overloaded, need to think of a good way
   //  to break it up into separate testable actions
-  it("Group permissions", () => {
+  it("Groups CRUD", () => {
     let newGroupName = `automation-${v4()}`;
 
-    // create new group
-    userGroupMainViewActions.clickCreateGroup();
-    userCreateFlowPageActions.typyIntoNameField(newGroupName);
-    userCreateFlowPageActions.selectFromTypeDropDown(UserGroupType.EMPLOYER);
-    userCreateFlowPageActions.clickCreateNewUserGroupButton();
+    createNewGroup(newGroupName);
+    navigateToGroupListingPage();
+    userGroupMainViewActions
+      .searchForGroupByName(newGroupName)
+      .verifyOnlyOneItemInTable()
+      .openSideMenuByGroupName(newGroupName);
 
-    // get back to group list
-    navigateToGroupLisitingPage();
+    var renameAppendText = "-updated";
+    userGroupMainViewActions
+      .renameGroup(renameAppendText)
+      .verifyRenameDialogueClosed();
+    newGroupName += renameAppendText;
 
-    searchForGroupByName(newGroupName);
-
-    // get into items menu by containing text
-    userGroupElements
-      .groupTable()
-      .contains("td", newGroupName)
-      .siblings()
-      .find(`button[aria-controls*='${newGroupName}']`)
-      .click();
-
-    // rename item
-    cy.focused().contains("li", GroupItemMenuActions.RENAME).click();
-    cy.focused().type("-updated");
-    newGroupName += "-updated";
-    cy.get("[data-cy=submit-button]").click();
-
-    searchForGroupByName(newGroupName);
-
-    // get into items menu by containing text
-    userGroupElements
-      .groupTable()
-      .contains("td", newGroupName)
-      .siblings()
-      .find(`button[aria-controls*='${newGroupName}']`)
-      .click();
+    // I don't like this, the state of the search box persists between searches
+    // maybe do a path re-navigation again?  have to navigate out first, ie user management or bdm
+    navigateToGroupListingPage();
+    userGroupMainViewActions
+      .searchForGroupByName(renameAppendText)
+      .verifyOnlyOneItemInTable()
+      .openSideMenuByGroupName(newGroupName);
 
     // click delete group
     cy.focused()
@@ -73,10 +59,10 @@ describe("Groups: ", () => {
     // confirm delete
     cy.get('[role="dialog"]').contains("span", "Confirm").click();
 
-    navigateToGroupLisitingPage();
-    searchForGroupByName(newGroupName);
+    navigateToGroupListingPage();
+    userGroupMainViewActions.searchForGroupByName(newGroupName);
 
-    cy.get(".MuiAutocomplete-noOptions").should("contain.text", "No options");
+    cy.contains("p", "No user groups available").should('be.visible');
   });
 });
 
@@ -84,10 +70,12 @@ describe("Group Permissions: ", () => {
   beforeEach(() => {
     cy.loginTrainingProvider();
     tenantSelectActions.pickTestTenant().submitSelection();
-    navigateToGroupLisitingPage();
+    navigateToGroupListingPage();
 
-    // pick menu for first8 group (expects at least one to exist)
-    // the other option is to create one and search for it (adds more time to execution)
+    // pick menu for first group (expects at least one to exist)
+    // the other option is to create one and search for it
+    // - adds more time to execution
+    // - requires cleanup
     userGroupElements
       .groupTable()
       .find("td")
@@ -109,13 +97,13 @@ describe("Group Permissions: ", () => {
       .contains("span", Modules.BDM)
       .click();
 
-    // recepie : https://github.com/cypress-io/cypress-example-recipes/blob/master/examples/fundamentals__dynamic-tests/cypress/integration/list-spec.js
     extractKeysFromStringEnum(BdmPermissions).forEach((permission) => {
       cy.get('[data-cy="permissions-table"]')
         .contains("td", permission)
         .siblings()
         .find('[type="checkbox"]')
-        .should("exist");
+        .should("exist")
+        .should("be.enabled");
     });
   });
 
@@ -134,15 +122,15 @@ describe("Group Permissions: ", () => {
   });
 });
 
-export function navigateToGroupLisitingPage() {
+export function navigateToGroupListingPage() {
   primaryMenuActions.clickUserManagementButton();
   secondaryMenuActions.verifyUserGroupButtonVisible();
   secondaryMenuActions.clickUserGroupButton();
 }
 
-export function searchForGroupByName(groupName: string) {
-  userGroupElements.searchBox().type(`${groupName}`).click();
-  // this is flaky
-  cy.wait(1000);
-  userGroupElements.searchBox().type("{enter}");
+export function createNewGroup(newGroupName: string) {
+  userGroupMainViewActions.clickCreateGroup();
+  userCreateFlowPageActions.typeIntoNameField(newGroupName);
+  userCreateFlowPageActions.selectFromTypeDropDown(UserGroupType.EMPLOYER);
+  userCreateFlowPageActions.clickCreateNewUserGroupButton();
 }
