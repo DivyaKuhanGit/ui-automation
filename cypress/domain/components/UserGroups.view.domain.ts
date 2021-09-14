@@ -1,8 +1,9 @@
 export const elements = {
-  searchBox: () => cy.get('[aria-autocomplete="list"]'),
+  searchBox: () => cy.get('[data-cy="user-groups-search-bar"]'),
   createNewGroupButton: () => cy.contains("Create new group"),
   groupTable: () => cy.get('[aria-label="table"]'),
-  nextPage: () => cy.get('[title="Next page"]')
+  emptyGroupTable: () => cy.contains("p", "No user groups available"),
+  nextPage: () => cy.get('[title="Next page"]'),
 };
 
 export enum GroupItemMenuActions {
@@ -18,28 +19,48 @@ export const actions = {
     return actions;
   },
 
-  getGroupByName(name: string) {
-    console.log("starting to search");
-    do {
-      try {
-        return elements.groupTable().contains("li", name);
-      } catch (e) {
-        actions.clickNextPage();
-      }
-    } while (actions.isNextPageAvailable());
-    return undefined;
+  verifyGroupsTableEmpty() {
+    elements.emptyGroupTable().should("be.visible");
+    return actions;
   },
 
-  isNextPageAvailable(): boolean {
-    elements.nextPage().then((x) => {
-      return !x.is("enabled");
-    });
-    return false;
+  searchForGroupByName(groupName: string) {
+    elements.searchBox().type(`${groupName}`).click();
+    elements.searchBox().type('{enter}');
+    return actions;
   },
 
-  clickNextPage() {
-    elements.nextPage().then((x) => {
-      x.click();
-    });
+  openSideMenuByGroupName(groupName: string) {
+    elements
+      .groupTable()
+      .contains("td", groupName)
+      .siblings()
+      .find(`button[aria-controls*='${groupName}']`)
+      .click();
+
+    return actions;
+  },
+
+  /**
+   * expects groups action item menu to be open
+   */
+  renameGroup(renameAppendText: string) {
+    cy.focused().contains("li", GroupItemMenuActions.RENAME).click();
+    cy.focused().type(renameAppendText);
+    cy.get("[data-cy=submit-button]").click();
+
+    return actions;
+  },
+
+  verifyRenameDialogueClosed() {
+    cy.get(`[role="dialog"]`).should("not.exist");
+    return actions;
+  },
+
+  verifyOnlyOneItemInTable() {
+    // verify only 1 item in table after filtering via search
+    // +1 because table header is also a <tr>
+    elements.groupTable().find("tr").should("have.length", 2);
+    return actions;
   },
 };
