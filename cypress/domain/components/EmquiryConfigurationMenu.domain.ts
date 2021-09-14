@@ -13,6 +13,11 @@ export const elementPaths={
     renameTextfield:() => cy.get('[id="name"]'),
     renameCloseReasonSave: () => cy.get('[role=dialog]').get('[data-cy="submit-button"]').contains('Save'),
     renameCloseReasonCancel: () => cy.get('[role=dialog]').get('[data-cy="cancel-button"]').contains('Cancel'),
+    editEnqStatus: () => cy.get('[data-cy="enquiry-statuses-button"]').contains('Edit Enquiry Statuses'),
+    addEnqStatus: () => cy.get('[data-cy="add-enquiry-status-button"]'),
+    enqStatusItems: () => cy.get('[data-cy="enquiry-statuses-items"]'),
+    addEnqSavebtn: () => cy.get('[data-cy="submit-button"]').contains('Save'),
+    addEnqCancelBtn: () => cy.get('[data-cy="cancel-button"]').contains('Cancel')
  };
 
 export const actions = {
@@ -28,6 +33,16 @@ export const actions = {
 
     clickLoadMore() {
         elements.loadMore().click();
+        return this;
+    },
+
+    clickEditEnqStatus() {
+        elements.editEnqStatus().click();
+        return this;
+    },
+
+    clickAddEnqStatus() {
+        elements.addEnqStatus().click();
         return this;
     },
     verifycloseReasonItemsVisible() {
