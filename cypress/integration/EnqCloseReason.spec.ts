@@ -101,7 +101,7 @@ describe('Edit Enquiry Close Reason:', () => {
             .contains('li', orignalVal)
             .find(`button[aria-label*=${orignalVal}]`)
             .click();
-            cy.focused().get('[data-cy="0-rename-button"]').contains('Rename').click();
+            cy.focused().get('[data-cy="2-rename-button"]').contains('p','Rename').click();
 
             //Renaming the Old Reason Name to New Name
             cy.focused().get('[role=dialog]').get('[data-cy="name-field"]').clear();
