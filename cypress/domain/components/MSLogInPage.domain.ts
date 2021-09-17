@@ -13,16 +13,16 @@ export const actions = {
     elements.passwordField().should('be.visible').should('be.enabled').type(password);
 
     cy.get('[id="next"]').click();
-    return this;
+    return actions;
   },
 
   logInAsAdmin: () => {
     actions.logIn(userName, password);
-    return this;
+    return actions;
   },
 
   verifyOnLogInPage: () => {
-    //cy.url().should('include', Cypress.env('log-in-url'));
+    cy.url().should('include', Cypress.env('log-in-url'));
     return this;
   },
 

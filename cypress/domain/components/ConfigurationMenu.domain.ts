@@ -12,41 +12,41 @@ export const elements = {
 export const actions = {
   clickEnquiries() {
     elements.enquiries().click();
-    return this;
+    return actions;
   },
 
   clickOpportunities() {
     elements.opportunities().click();
-    return this;
+    return actions;
   },
 
   clickAccounts() {
     elements.accounts().click();
-    return this;
+    return actions;
   },
 
   clickPriceBook() {
     elements.priceBook().click();
-    return this;
+    return actions;
   },
 
   verifyEnquiriesVisible() {
     elements.enquiries().should('be.visible');
-    return this;
+    return actions;
   },
 
   verifyOpportunitiesVisible() {
     elements.opportunities().should('be.visible');
-    return this;
+    return actions;
   },
 
   verifyAccountsVisible() {
     elements.accounts().should('be.visible');
-    return this;
+    return actions;
   },
 
   verifyPriceBookVisible() {
     elements.priceBook().should('be.visible');
-    return this;
+    return actions;
   }
 };

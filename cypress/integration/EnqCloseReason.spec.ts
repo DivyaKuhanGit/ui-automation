@@ -4,18 +4,19 @@ import { actions as bdmSumbenuActions } from '../domain/components/BdmSubmenu.do
 import { actions as bdmConfigMenuActions } from '../domain/components/EmquiryConfigurationMenu.domain';
 import { actions as configMenuActions } from '../domain/components/ConfigurationMenu.domain';
 import { elements as enquiryConfigmenuElements } from '../domain/components/EmquiryConfigurationMenu.domain';
-import { uuid } from 'uuidv4';
-const randomVal = uuid();
+import { v4 } from 'uuid';
+const randomVal = v4();
 const enqItemList = '[data-cy=enquiry-close-reasons-items]';
 const orignalVal = randomVal;
+
 
 describe('Edit Enquiry Close Reason:', () => {
   beforeEach(() => {
     cy.loginTrainingProvider();
   });
 
-  it('BDM : Add Close Reason', () => {
-    // get to configuration menu
+  it('BDM : Configuration Enquiries_Add Close Reason', () => {
+    //                  get to configuration menu
 
     // select test tenant
     tenantSelectActions.pickTestTenant();
@@ -35,7 +36,7 @@ describe('Edit Enquiry Close Reason:', () => {
     bdmConfigMenuActions.clickAddCloseReason();
 
     //Actions to be performed inside dialog box
-    cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(uuid());
+    cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(v4());
     cy.focused().blur();
     //Clicks Save button of the dialog box.
     enquiryConfigmenuElements.addCloseReasonSave().click();
@@ -92,8 +93,8 @@ describe('Edit Enquiry Close Reason:', () => {
     cy.get('li[data-cy*="rename-button"]').focused().click();
 
     //Renaming the Old Reason Name to New Name
-    cy.focused().get('[role=dialog]').get('[data-cy="name-field"]').clear();
-    enquiryConfigmenuElements.renameTextfield().type('Renamed-' + uuid());
+      cy.focused().get('[role=dialog]').get('[data-cy="name-field"]').clear();
+      enquiryConfigmenuElements.renameTextfield().type('Renamed-' + v4());
     enquiryConfigmenuElements.renameCloseReasonSave().click();
   });
 });

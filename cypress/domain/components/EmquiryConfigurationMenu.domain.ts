@@ -23,12 +23,12 @@ export const elementPaths={
 export const actions = {
     clickEditEnqCloseReasonButton() {
         elements.editEnqCloseReason().click();
-        return this;
+        return actions;
     },
 
     clickAddCloseReason() {
         elements.addCloseReason().click();
-        return this;
+        return actions;
     },
 
     clickLoadMore() {
@@ -58,11 +58,11 @@ export const actions = {
 
     verifyAddCloseReasonVisible() {
         elements.addCloseReason().should('be.visible');
-        return this;
+        return actions;
     },
     
     verifyEditEnqCloseReasonVisible() {
         elements.editEnqCloseReason().should('be.visible');
-        return this;
+        return actions;
     }
 };
