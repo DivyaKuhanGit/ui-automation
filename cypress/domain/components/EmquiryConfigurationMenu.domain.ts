@@ -17,7 +17,8 @@ export const elementPaths={
     addEnqStatus: () => cy.get('[data-cy="add-enquiry-status-button"]'),
     enqStatusItems: () => cy.get('[data-cy="enquiry-statuses-items"]'),
     addEnqSavebtn: () => cy.get('[data-cy="submit-button"]').contains('Save'),
-    addEnqCancelBtn: () => cy.get('[data-cy="cancel-button"]').contains('Cancel')
+    addEnqCancelBtn: () => cy.get('[data-cy="cancel-button"]').contains('Cancel'),
+    addNewEnqTypeBtn: () => cy.get('[data-cy="add-enquiry-type-button"]')
  };
 
 export const actions = {
@@ -45,6 +46,12 @@ export const actions = {
         elements.addEnqStatus().click();
         return actions;
     },
+
+    clickAddNewEnqType() {
+        elements.addNewEnqTypeBtn().click();
+        return actions;
+    },
+
     verifycloseReasonItemsVisible() {
         elements.closeReasonitems().should('be.visible');
         return actions;
