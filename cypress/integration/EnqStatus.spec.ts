@@ -15,8 +15,6 @@ describe('Edit Enquiry Status :', () => {
     });
 
     it('BDM : Add Enquiry Status', () => {
-        // get to configuration menu
-
         // select test tenant
         tenantSelectActions.pickTestTenant();
         tenantSelectActions.submitSelection();

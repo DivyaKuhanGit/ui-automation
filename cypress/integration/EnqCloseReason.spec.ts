@@ -16,8 +16,6 @@ describe('Edit Enquiry Close Reason:', () => {
     });
 
     it('BDM : Configuration Enquiries_Add Close Reason', () => {
-        //                  get to configuration menu
-
         // select test tenant
         tenantSelectActions.pickTestTenant();
         tenantSelectActions.submitSelection();
