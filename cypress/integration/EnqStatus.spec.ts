@@ -14,31 +14,31 @@ describe('Edit Enquiry Status :', () => {
         cy.loginTrainingProvider();
     });
 
-    //it('BDM : Add Enquiry Status', () => {
-    //    // get to configuration menu
+    it('BDM : Add Enquiry Status', () => {
+        // get to configuration menu
 
-    //    // select test tenant
-    //    tenantSelectActions.pickTestTenant();
-    //    tenantSelectActions.submitSelection();
+        // select test tenant
+        tenantSelectActions.pickTestTenant();
+        tenantSelectActions.submitSelection();
 
-    //    // open BDM module
-    //    navMenuActions.clickBuisnessDevelopmentButton();
+        // open BDM module
+        navMenuActions.clickBuisnessDevelopmentButton();
 
-    //    // access configuration in bdm
-    //    bdmSumbenuActions.clickConfigurationButton();
+        // access configuration in bdm
+        bdmSumbenuActions.clickConfigurationButton();
 
-    //    // access configure enquiries
-    //    configMenuActions.clickEnquiries();
+        // access configure enquiries
+        configMenuActions.clickEnquiries();
 
-    //    // Actual Enquiry Config screen navigation
-    //    bdmConfigMenuActions.clickEditEnqStatus();
-    //    bdmConfigMenuActions.clickAddEnqStatus();
+        // Actual Enquiry Config screen navigation
+        bdmConfigMenuActions.clickEditEnqStatus();
+        bdmConfigMenuActions.clickAddEnqStatus();
 
-    //    //Actions to be performed inside dialog box
-    //    cy.focused().get('[role="dialog"]').get('[data-cy="name-field"]').focused().type(v4());
-    //    cy.focused().blur();
-    //    enquiryConfigmenuElements.addEnqSavebtn().click();
-    //});
+        //Actions to be performed inside dialog box
+        cy.focused().get('[role="dialog"]').get('[data-cy="name-field"]').focused().type(v4());
+        cy.focused().blur();
+        enquiryConfigmenuElements.addEnqSavebtn().click();
+    });
 
     it('BDM : Rename Enquiry Status', () => {
         let body: object = {};
