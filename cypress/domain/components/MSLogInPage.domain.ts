@@ -23,7 +23,7 @@ export const actions = {
 
   verifyOnLogInPage: () => {
     cy.url().should('include', Cypress.env('log-in-url'));
-    return this;
+    return actions;
   },
 
   vistUserManagementBase: () => {

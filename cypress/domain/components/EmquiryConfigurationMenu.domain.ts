@@ -43,7 +43,7 @@ export const actions = {
 
     clickAddEnqStatus() {
         elements.addEnqStatus().click();
-        return this;
+        return actions;
     },
     verifycloseReasonItemsVisible() {
         elements.closeReasonitems().should('be.visible');
@@ -52,7 +52,7 @@ export const actions = {
 
     verifyLoadMoreVisible() {
         elements.loadMore().should('be.visible');
-        return this;
+        return actions;
     },
 
 
