@@ -19,7 +19,7 @@ describe('Edit Enquiry Close Reason:', () => {
 
     // open BDM module
     navMenuActions.verifyBuisnessDevelopmentButtonVisible();
-    navMenuActions.clickBuisnessDevelopmentButton();
+    navMenuActions.clickBusinessDevelopmentButton();
 
     // access configuration in bdm
     bdmSumbenuActions.verifyConfigurationButtonVisible();
