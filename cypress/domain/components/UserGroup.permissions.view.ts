@@ -22,6 +22,7 @@ export enum BdmPermissions {
   "Create/edit opportunities",
   "Configure account statuses",
   "Create/edit enquiries",
+  "View Opportunities"
 }
 
 export enum UmPermissions {
