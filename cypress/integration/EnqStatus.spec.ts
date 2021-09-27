@@ -6,16 +6,15 @@ import { actions as configMenuActions } from '../domain/components/Configuration
 import { elements as enquiryConfigmenuElements } from '../domain/components/EmquiryConfigurationMenu.domain';
 import { v4 } from 'uuid';
 const randomVal = v4();
-const enqItemList = '[data-cy=enquiry-close-reasons-items]';
-const orignalVal = randomVal;
+const orignalStatus = randomVal;
+const enqStatusItems = '[data-cy="enquiry-statuses-items"]';
 
-
-describe('Edit Enquiry Close Reason:', () => {
+describe('Edit Enquiry Status :', () => {
     beforeEach(() => {
         cy.loginTrainingProvider();
     });
 
-    it('BDM : Configuration Enquiries_Add Close Reason', () => {
+    it('BDM : Add Enquiry Status', () => {
         // select test tenant
         tenantSelectActions.pickTestTenant();
         tenantSelectActions.submitSelection();
@@ -30,18 +29,18 @@ describe('Edit Enquiry Close Reason:', () => {
         configMenuActions.clickEnquiries();
 
         // Actual Enquiry Config screen navigation
-        bdmConfigMenuActions.clickEditEnqCloseReasonButton();
-        bdmConfigMenuActions.clickAddCloseReason();
+        bdmConfigMenuActions.clickEditEnqStatus();
+        bdmConfigMenuActions.clickAddEnqStatus();
 
         //Actions to be performed inside dialog box
-        cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(v4());
+        cy.focused().get('[role="dialog"]').get('[data-cy="name-field"]').focused().type(v4());
         cy.focused().blur();
-        enquiryConfigmenuElements.addCloseReasonSave().click();
+        enquiryConfigmenuElements.addEnqSavebtn().click();
     });
 
-    it.only('BDM : Rename Enqiury Close Reason', () => {
+    it('BDM : Rename Enquiry Status', () => {
         let body: object = {};
-        cy.intercept('/business-development/enquiry-close-reasons?page=0', (request) => {
+        cy.intercept('/business-development/enquiry-status?page=0', (request) => {
             request.continue((response) => {
                 body = response.body;
             });
@@ -61,13 +60,13 @@ describe('Edit Enquiry Close Reason:', () => {
         configMenuActions.clickEnquiries();
 
         // Actual Enquiry Config screen navigation
-        bdmConfigMenuActions.clickEditEnqCloseReasonButton();
-        bdmConfigMenuActions.clickAddCloseReason();
+        bdmConfigMenuActions.clickEditEnqStatus();
+        bdmConfigMenuActions.clickAddEnqStatus();
 
         //Actions to be performed inside dialog box
-        cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(randomVal);
+        cy.focused().get('[role="dialog"]').get('[data-cy="name-field"]').focused().type(randomVal);
         cy.focused().blur();
-        enquiryConfigmenuElements.addCloseReasonSave().click();
+        enquiryConfigmenuElements.addEnqSavebtn().click();
 
         // wait for the request to the api to get the first page of enquiry close reasons
         cy.wait('@resp').then((r) => {
@@ -78,8 +77,8 @@ describe('Edit Enquiry Close Reason:', () => {
         });
 
         // All Pages Loaded, check that the element we just added is present
-        cy.get(enqItemList)
-            .contains('p', orignalVal)
+        cy.get(enqStatusItems)
+            .contains('p', orignalStatus)
             .parent()
             .parent()
             .parent()
@@ -90,7 +89,7 @@ describe('Edit Enquiry Close Reason:', () => {
         cy.get('li[data-cy*="rename-button"]').focused().click();
 
         //Renaming the Old Reason Name to New Name
-        cy.focused().get('[role=dialog]').get('[data-cy="name-field"]').clear();
+        cy.get('[role=dialog]').get('[data-cy="name-field"]').clear();
         enquiryConfigmenuElements.renameTextfield().type('Renamed-' + v4());
         enquiryConfigmenuElements.renameCloseReasonSave().click();
     });
@@ -104,9 +103,10 @@ function loadAllPages(pages, level = 0) {
         return;
     }
     return cy
-        .get('button:not([disabled])[data-cy=enquiry-close-reasons-load-more-button]')
+        .get('button:not([disabled])[data-cy=enquiry-statuses-load-more-button]')
         .then((e) => {
             cy.wrap(e).click();
             return loadAllPages(pages, level + 1);
         });
 }
+
