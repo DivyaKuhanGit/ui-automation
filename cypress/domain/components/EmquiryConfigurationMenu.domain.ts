@@ -18,7 +18,8 @@ export const elementPaths={
     enqStatusItems: () => cy.get('[data-cy="enquiry-statuses-items"]'),
     addEnqSavebtn: () => cy.get('[data-cy="submit-button"]').contains('Save'),
     addEnqCancelBtn: () => cy.get('[data-cy="cancel-button"]').contains('Cancel'),
-    addNewEnqTypeBtn: () => cy.get('[data-cy="add-enquiry-type-button"]')
+    addNewEnqTypeBtn: () => cy.get('[data-cy="add-enquiry-type-button"]'),
+    enqTypeStatus: () => cy.get('[data-cy="enquiry-type-statuses"]')
  };
 
 export const actions = {
