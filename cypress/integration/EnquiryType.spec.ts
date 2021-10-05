@@ -85,7 +85,7 @@ describe("Enquiry Type : ", () => {
         const refStatus = statusVal;
 
         //Actions to get response after loading all pages
-        let body: object = {};
+        let body: object;
         cy.intercept('/business-development/enquiry-status?page=0', (request) => {
             request.continue((response) => {
                 body = response.body;
@@ -140,14 +140,14 @@ describe("Enquiry Type : ", () => {
             .click();
 
         //Actions to click Enquiry Status Dropdown box.
-        enquiryConfigElements.enquiryTypeStatus()
-            .children()
-            .children()
-            .children()
-            .children('button')
-            .click()
-            .focused()
-            .contains('refStatus').check({ force: true })
+        // enquiryConfigElements.enquiryTypeStatus()
+        //     .children()
+        //     .children()
+        //     .children()
+        //     .children('button')
+        //     .click()
+            // .focused()
+            // .contains('refStatus').check({ force: true })
         //cy.scrollTo('bottom', { ensureScrollable: false })
 
         ////Type and checks the required EnquiryStatus
@@ -156,7 +156,12 @@ describe("Enquiry Type : ", () => {
         //cy.get('[type="checkbox"]').check()
         //    .focused()
         //    .blur();
-        enquiryConfigElements.enquiryTypeStatus().contains(refStatus);
+
+        //cy.get('data-cy="enquiry-type-statuses"').contains('li',refStatus).click();
+        //enquiryConfigElements.enquiryTypeStatus().contains('li',refStatus);
+
+        enquiryConfigElements.enquiryTypeStatus().type('-/-');
+        cy.focused().type('{downarrow}').type('{enter}');
     });
 });
 
