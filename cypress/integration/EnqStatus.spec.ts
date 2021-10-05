@@ -35,7 +35,7 @@ describe('Edit Enquiry Status :', () => {
         //Actions to be performed inside dialog box
         cy.focused().get('[role="dialog"]').get('[data-cy="name-field"]').focused().type(v4());
         cy.focused().blur();
-        enquiryConfigmenuElements.addEnqSavebtn().click();
+        enquiryConfigmenuElements.addEnqSaveBtn().click();
     });
 
     it('BDM : Rename Enquiry Status', () => {
@@ -66,7 +66,7 @@ describe('Edit Enquiry Status :', () => {
         //Actions to be performed inside dialog box
         cy.focused().get('[role="dialog"]').get('[data-cy="name-field"]').focused().type(randomVal);
         cy.focused().blur();
-        enquiryConfigmenuElements.addEnqSavebtn().click();
+        enquiryConfigmenuElements.addEnqSaveBtn().click();
 
         // wait for the request to the api to get the first page of enquiry close reasons
         cy.wait('@resp').then((r) => {
@@ -109,4 +109,3 @@ function loadAllPages(pages, level = 0) {
             return loadAllPages(pages, level + 1);
         });
 }
-

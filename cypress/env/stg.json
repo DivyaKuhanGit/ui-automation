@@ -5,7 +5,7 @@
     "tenant-management-base": "https://control-panel.test.smartskillshub.co.uk",
     "api-gateway": "https://ssh-core-test-apim-gw.azure-api.net",
     "log-in-url": "/oauth2/v2.0/authorize",
-    "test-tenant-name": "BDM Test Tenant",
+    "test-tenant-name": "TestTenant",
     "__TODO__": "move this to secure storage",
     "admin-user": "sa_all_permissions@yahoo.com",
     "admin-password": "Amdaris123"
