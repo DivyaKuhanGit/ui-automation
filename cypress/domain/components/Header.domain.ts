@@ -1,12 +1,18 @@
+import { getEnumKeyByEnumValue } from "../../utils/enum.util";
+
 export const elements = {
-  langControl: () => cy.get("header").get("button").find('span'),
+  // this is ugly, waiting for a data-cy tag on this
+  languageControl: () =>
+    cy.get('[data-cy="appbar-content"]').find("button").first(),
+  userMenu: () => cy.get('[data-cy="appbar-content"]').find("button").last(),
+  logOutMenuAction: () => cy.get("[data-cy=logout]"),
 };
 
 export const actions = {
-  verifyLanguige(expectedLang: SupportedLanguige) {
+  verifyLanguage(expectedLang: SupportedLanguage) {
     try {
       elements
-        .langControl()
+        .languageControl()
         .invoke("text")
         .then((text1) => {
           expect(expectedLang).to.equal(
@@ -20,13 +26,20 @@ export const actions = {
     return actions;
   },
 
-  // setLanguige(lang: SupportedLanguige) {
+  logOut() {
+    elements.userMenu().click();
+    elements.logOutMenuAction().click();
+
+    return actions;
+  },
+
+  // setLanguage(lang: SupportedLanguage) {
   //   // TODO
   //   return this;
   // }
 };
 
-export enum SupportedLanguige {
+export enum SupportedLanguage {
   ENGLISH = "en",
   ENGLISH_BRITISH = "en-GB",
   FRENCH = "fr",
@@ -35,16 +48,7 @@ export enum SupportedLanguige {
   GREEK = "cy",
 }
 
-function mapStringToSupportedLang(mapMe: string): SupportedLanguige {
-  let enumKey = getEnumKeyByEnumValue(SupportedLanguige, mapMe);
-  return <any>SupportedLanguige[enumKey];
-}
-
-// TODO: move this to shared utils ? in this or separate package
-function getEnumKeyByEnumValue(
-  myEnum: any,
-  enumValue: number | string
-): string {
-  let keys = Object.keys(myEnum).filter((x) => myEnum[x] == enumValue);
-  return keys.length > 0 ? keys[0] : "";
+function mapStringToSupportedLang(mapMe: string): SupportedLanguage {
+  let enumKey = getEnumKeyByEnumValue(SupportedLanguage, mapMe);
+  return <any>SupportedLanguage[enumKey];
 }
