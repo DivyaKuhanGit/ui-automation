@@ -57,7 +57,7 @@ describe("Groups: ", () => {
       .click();
 
     // confirm delete
-    cy.get('[role="dialog"]').contains("span", "Confirm").click();
+    cy.get('[role="dialog"]').contains("button", "Confirm").click();
 
     navigateToGroupListingPage();
     userGroupMainViewActions.searchForGroupByName(newGroupName);
