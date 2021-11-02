@@ -27,7 +27,10 @@ describe("Accounts: ", () => {
       .searchAccountsByValue(newAccountName)
       .verifyItemExistsInTableByName(newAccountName)
       .openActionsMenuOnFirstItem()
-      .selectFirstOptionInActionMenu()
+      .selectFirstOptionInActionMenu();
+
+      // waiting for data-cy tag here
+    cy.contains("div", newAccountName).should("be.visible");
   });
 });
 
