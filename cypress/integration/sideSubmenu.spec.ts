@@ -27,7 +27,7 @@ describe('"Buisness Development" Submenu', () => {
 
     // get to BDM submenu
     tenantSelectActions.pickTestTenant().submitSelection();
-    navMenuActions.clickBuisnessDevelopmentButton();
+    navMenuActions.clickBusinessDevelopmentButton();
   });
 
   it('Validate "Enquiries" sumbenu option', () => {
