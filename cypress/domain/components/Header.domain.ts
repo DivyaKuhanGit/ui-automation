@@ -2,8 +2,7 @@ import { getEnumKeyByEnumValue } from "../../utils/enum.util";
 
 export const elements = {
   // this is ugly, waiting for a data-cy tag on this
-  languageControl: () =>
-    cy.get('[data-cy="appbar-content"]').find("button").first(),
+  languageControl: () => cy.get('[data-cy="language-menu"]'),
   userMenu: () => cy.get('[data-cy="appbar-content"]').find("button").last(),
   logOutMenuAction: () => cy.get("[data-cy=logout]"),
 };
