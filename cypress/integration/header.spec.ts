@@ -1,17 +1,25 @@
-import { actions as headerActions, SupportedLanguige } from '../domain/components/Header.domain';
+import {
+  actions as headerActions,
+  SupportedLanguage as SupportedLanguage,
+} from "../domain/components/Header.domain";
+import { actions as logInPageActions } from "../domain/components/MSLogInPage.domain";
 
-describe('Training Provider Portal: Header', () => {
+describe("Training Provider Portal: Header", () => {
   beforeEach(() => {
     cy.loginTrainingProvider();
   });
 
-  describe('Menu : Localization', () => {
-    it('Header: default languige validation', () => {
-      headerActions.verifyLanguige(SupportedLanguige.ENGLISH);
+  describe("Menu : Localization", () => {
+    it("Header: default language validation", () => {
+      headerActions.verifyLanguage(SupportedLanguage.ENGLISH);
+    });
+  });
 
-      // this wait shouldn't be necessary
-      cy.wait(1000);
-      headerActions.verifyLanguige(SupportedLanguige.ENGLISH_BRITISH);
+  describe("Menu : User Menu", () => {
+    it(" validate log out", () => {
+      headerActions.logOut();
+
+      logInPageActions.verifyOnLogInPage();
     });
   });
 });

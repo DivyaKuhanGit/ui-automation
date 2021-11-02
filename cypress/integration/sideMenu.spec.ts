@@ -17,8 +17,4 @@ describe('Side Menu navigation', () => {
     tenantSelectActions.pickTestTenant().submitSelection();
     navMenuActions.verifyBuisnessDevelopmentButtonVisible().clickBusinessDevelopmentButton();
   });
-
-  it('Side Menu: validate log in/out', () => {
-    navMenuActions.logOut();
-  });
 });
