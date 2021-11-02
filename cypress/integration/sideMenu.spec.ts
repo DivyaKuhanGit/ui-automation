@@ -15,7 +15,7 @@ describe('Side Menu navigation', () => {
   it('Validate BDM is only after access to a tenant with correct permissions', () => {
     navMenuActions.verifyBdmButtonDoesNotExist();
     tenantSelectActions.pickTestTenant().submitSelection();
-    navMenuActions.verifyBuisnessDevelopmentButtonVisible().clickBuisnessDevelopmentButton();
+    navMenuActions.verifyBuisnessDevelopmentButtonVisible().clickBusinessDevelopmentButton();
   });
 
   it('Side Menu: validate log in/out', () => {

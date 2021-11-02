@@ -22,7 +22,7 @@ export const actions = {
     return actions;
   },
 
-  clickBuisnessDevelopmentButton() {
+  clickBusinessDevelopmentButton() {
     elements.bdmButton().click();
     return actions;
   },
