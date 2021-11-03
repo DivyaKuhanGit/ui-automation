@@ -21,67 +21,67 @@ describe("Enquiry Type : ", () => {
         bdmSumbenuActions.clickConfigurationButton();
     });
 
-    it("BDM Add New Enquiry Type", () => {
-        const randomVal = v4();
-        const orignalType = randomVal;
+    //it("BDM Add New Enquiry Type", () => {
+    //    const randomVal = v4();
+    //    const orignalType = randomVal;
 
-        // access configure enquiries
-        configMenuActions.clickEnquiries();
+    //    // access configure enquiries
+    //    configMenuActions.clickEnquiries();
 
-        //Actual Enquiry Type Screen Navigation
-        enquiryConfigmenuactions.clickAddNewEnqType();
+    //    //Actual Enquiry Type Screen Navigation
+    //    enquiryConfigmenuactions.clickAddNewEnqType();
 
-        //Actions to be performed inside dialog box
-        cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(randomVal);
-        cy.focused().blur();
-        enquiryConfigElements.addEnqSaveBtn().click();
-        enquiryConfigmenuactions.clickLoadAllPages();
-        enquiryConfigmenuactions.clickAllPages();
-        enquiryConfigElements.enquiryTypeTable().contains('p', orignalType);
-    });
+    //    //Actions to be performed inside dialog box
+    //    cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(randomVal);
+    //    cy.focused().blur();
+    //    enquiryConfigElements.addEnqSaveBtn().click();
+    //    enquiryConfigmenuactions.clickLoadAllPages();
+    //    enquiryConfigmenuactions.clickAllPages();
+    //    enquiryConfigElements.enquiryTypeTable().contains('p', orignalType);
+    //});
 
-    it("BDM Rename Enquiry Type", () => {
-        const nameVal = v4();
-        const renameVal = nameVal;
-        const typeName = v4();
-        const checkname = 'Renamed-' + typeName;
+    //it("BDM Rename Enquiry Type", () => {
+    //    const nameVal = v4();
+    //    const renameVal = nameVal;
+    //    const typeName = v4();
+    //    const checkname = 'Renamed-' + typeName;
 
-        // access configure enquiries
-        configMenuActions.clickEnquiries();
+    //    // access configure enquiries
+    //    configMenuActions.clickEnquiries();
 
-        //Actual Enquiry Type Screen Navigation
-        enquiryConfigmenuactions.clickAddNewEnqType();
+    //    //Actual Enquiry Type Screen Navigation
+    //    enquiryConfigmenuactions.clickAddNewEnqType();
 
-        //Actions to be performed inside dialog box
-        cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(nameVal);
-        cy.focused().blur();
-        enquiryConfigElements.addEnqSaveBtn().click();
+    //    //Actions to be performed inside dialog box
+    //    cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(nameVal);
+    //    cy.focused().blur();
+    //    enquiryConfigElements.addEnqSaveBtn().click();
 
-        //Actions to be performed to find and rename the added value.
-        enquiryConfigmenuactions.clickLoadAllPages();
-        enquiryConfigmenuactions.clickAllPages();
-        enquiryConfigElements.enquiryTypeTable()
-            .contains('p', renameVal)
-            .parent()
-            .siblings()
-            .children('button')
-            .click();
+    //    //Actions to be performed to find and rename the added value.
+    //    enquiryConfigmenuactions.clickLoadAllPages();
+    //    enquiryConfigmenuactions.clickAllPages();
+    //    enquiryConfigElements.enquiryTypeTable()
+    //        .contains('p', renameVal)
+    //        .parent()
+    //        .siblings()
+    //        .children('button')
+    //        .click();
 
-        cy.get('li[data-cy*="rename-button"]').focused().click();
+    //    enquiryConfigElements.renameBtn().focused().click();
 
-        //Renaming the Old Reason Name to New Name
-        cy.get('[role=dialog]').get('[data-cy="name-field"]').clear();
-        enquiryConfigElements.renameTextfield().type(checkname);
-        enquiryConfigElements.addEnqSaveBtn().click();
-        enquiryConfigmenuactions.clickLoadAllPages();
-        enquiryConfigmenuactions.clickAllPages();
-        enquiryConfigElements.enquiryTypeTable().contains('p', checkname);
-    });
+    //    //Renaming the Old Reason Name to New Name
+    //    enquiryConfigElements.dialogBoxNameField().clear();
+    //    enquiryConfigElements.renameTextfield().type(checkname);
+    //    enquiryConfigElements.addEnqSaveBtn().click();
+    //    enquiryConfigmenuactions.clickLoadAllPages();
+    //    enquiryConfigmenuactions.clickAllPages();
+    //    enquiryConfigElements.enquiryTypeTable().contains('p', checkname);
+    //});
 
     it("BDM : Create Enquiry Type and Set Enquiry Status", () => {
-        const actualVal = v4();
+        const actualVal = "028f17a3-1908-4181-90ff-756fcfba3589";//v4();
         const editedVal = actualVal;
-        const statusVal = v4();
+        const statusVal = "8356e2a6-eec1-4560-b221-342ded020125";//v4();
         const refStatus = statusVal;
 
         //Actions to get response after loading all pages
@@ -97,12 +97,12 @@ describe("Enquiry Type : ", () => {
 
         //Actions to Add New Enquiry Status
         enquiryConfigmenuactions.clickEditEnqStatus();
-        enquiryConfigmenuactions.clickAddEnqStatus();
+        //enquiryConfigmenuactions.clickAddEnqStatus();
 
-        //Actions to be performed inside dialog box
-        cy.focused().get('[role="dialog"]').get('[data-cy="name-field"]').focused().type(statusVal);
-        cy.focused().blur();
-        enquiryConfigElements.addEnqSaveBtn().click();
+        ////Actions to be performed inside dialog box
+        //enquiryConfigElements.dialogBoxNameField().focused().type(statusVal);
+        //cy.focused().blur();
+        //enquiryConfigElements.addEnqSaveBtn().click();
 
         // wait for the request to the api to get the first page of enquiry close reasons
         cy.wait('@resp').then((r) => {
@@ -117,13 +117,13 @@ describe("Enquiry Type : ", () => {
         // access configure enquiries
         configMenuActions.clickEnquiries();
 
-        //Actual Enquiry Type Screen Navigation
-        enquiryConfigmenuactions.clickAddNewEnqType();
+        ////Actual Enquiry Type Screen Navigation
+        //enquiryConfigmenuactions.clickAddNewEnqType();
 
-        //Actions to be performed inside dialog box
-        cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(actualVal);
-        cy.focused().blur();
-        enquiryConfigElements.addEnqSaveBtn().click();
+        ////Actions to be performed inside dialog box
+        //cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(actualVal);
+        //cy.focused().blur();
+        //enquiryConfigElements.addEnqSaveBtn().click();
 
         //Actions to click Action menu and Edit Button
         enquiryConfigmenuactions.clickLoadAllPages();
@@ -151,13 +151,12 @@ describe("Enquiry Type : ", () => {
         cy.focused()
         enquiryConfigElements.enquiryTypeStatus()
             .type('{downarrow}')
-            .type('{end}')
+            .type('{ctrl}{end}')
             .type(refStatus)
+            
 
-        cy.get('[type="checkbox"]').not('disabled')
+        enquiryConfigElements.checkBox()
             .check().should('be.checked')
-            .focused()
-            .blur();
     });
 });
 

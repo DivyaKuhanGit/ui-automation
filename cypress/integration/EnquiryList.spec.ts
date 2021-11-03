@@ -23,7 +23,7 @@ describe('Edit Enquiry Status :', () => {
         bdmConfigMenuActions.clickAddEnqStatus();
         cy.focused().get('[role="dialog"]').get('[data-cy="name-field"]').focused().type(status);
         cy.focused().blur();
-        enquiryConfigmenuElements.addEnqSavebtn().click();
+        enquiryConfigmenuElements.addEnqSaveBtn().click();
     });
 
     it("BDM Edit Enquiry Type", () => {
@@ -42,7 +42,7 @@ describe('Edit Enquiry Status :', () => {
         //Actions to be performed inside dialog box
         cy.focused().get('[role="dialog"]').get('[data-cy="name-field"]').focused().type(statusVal);
         cy.focused().blur();
-        enquiryConfigmenuElements.addEnqSavebtn().click();
+        enquiryConfigmenuElements.addEnqSaveBtn().click();
 
         // access configure enquiries
         configMenuActions.clickEnquiries();
@@ -53,12 +53,13 @@ describe('Edit Enquiry Status :', () => {
         //Actions to be performed inside dialog box
         cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(actualVal);
         cy.focused().blur();
-        enquiryConfigmenuElements.addEnqSavebtn().click();
+        enquiryConfigmenuElements.addEnqSaveBtn().click();
 
         //Actions to click Action menu and Edit Button
-        cy.get(enquiryTypeTable)
+        enquiryConfigmenuElements.enquiryTypeTable()
             .contains('p', editedVal)
             .parent()
+
             .siblings()
             .children('button')
             .click()

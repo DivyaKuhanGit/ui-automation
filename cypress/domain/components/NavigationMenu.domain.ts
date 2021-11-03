@@ -6,7 +6,7 @@ export const elementPaths = {
 export const elements = {
   logOutButton: () => cy.get(elementPaths.logOut),
   userManagementButton: () => cy.get(elementPaths.sideMenu).contains('User Management'),
-  bdmButton: () => cy.get(elementPaths.sideMenu).contains('Business Development')
+  bdmButton: () => cy.get(elementPaths.sideMenu).contains('Business')
 };
 
 export const actions = {

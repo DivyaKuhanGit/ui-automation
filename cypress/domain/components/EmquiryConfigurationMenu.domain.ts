@@ -24,7 +24,10 @@ export const elementPaths={
     enquiryTypeStatus: () => cy.get('[data-cy= "enquiry-type-statuses"]'),
     enquiryStatusItem: () => cy.get('[data-cy="enquiry-statuses-items"]'),
     loadDropDownPages: () => cy.get('[role="button"]').get('[aria-haspopup="listbox"]'),
-    allPages: () => cy.get('[data-value="100"]')
+    allPages: () => cy.get('[data-value="100"]'),
+    dialogBoxNameField: () => cy.get('[role = "dialog"]').get('[data-cy="name-field"]'),
+    renameBtn: () => cy.get('li[data-cy*="rename-button"]'),
+    checkBox: () => cy.get('[type="checkbox"]').not('disabled')
  };
 
 export const actions = {
@@ -65,7 +68,6 @@ export const actions = {
         elements.allPages().click();
         return actions;
     },
-
     verifycloseReasonItemsVisible() {
         elements.closeReasonitems().should('be.visible');
         return actions;
