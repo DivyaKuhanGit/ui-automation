@@ -87,10 +87,10 @@ describe('Edit Enquiry Close Reason:', () => {
             .siblings()
             .click();
 
-        cy.get('li[data-cy*="rename-button"]').focused().click();
+        enquiryConfigmenuElements.renameBtn().focused().click();
 
         //Renaming the Old Reason Name to New Name
-        cy.focused().get('[role=dialog]').get('[data-cy="name-field"]').clear();
+        enquiryConfigmenuElements.dialogBoxNameField().clear();
         enquiryConfigmenuElements.renameTextfield().type('Renamed-' + v4());
         enquiryConfigmenuElements.renameCloseReasonSave().click();
     });

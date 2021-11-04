@@ -16,9 +16,18 @@ export const elementPaths={
     editEnqStatus: () => cy.get('[data-cy="enquiry-statuses-button"]').contains('Edit Enquiry Statuses'),
     addEnqStatus: () => cy.get('[data-cy="add-enquiry-status-button"]'),
     enqStatusItems: () => cy.get('[data-cy="enquiry-statuses-items"]'),
-    addEnqSavebtn: () => cy.get('[data-cy="submit-button"]').contains('Save'),
+    addEnqSaveBtn: () => cy.get('[data-cy="submit-button"]').contains('Save'),
     addEnqCancelBtn: () => cy.get('[data-cy="cancel-button"]').contains('Cancel'),
-    addNewEnqTypeBtn: () => cy.get('[data-cy="add-enquiry-type-button"]')
+    addNewEnqTypeBtn: () => cy.get('[data-cy="add-enquiry-type-button"]'),
+    enqTypeStatus: () => cy.get('[data-cy="enquiry-type-statuses"]'),
+    enquiryTypeTable: () => cy.get('[data-cy=enquiry-types-table]'),
+    enquiryTypeStatus: () => cy.get('[data-cy= "enquiry-type-statuses"]'),
+    enquiryStatusItem: () => cy.get('[data-cy="enquiry-statuses-items"]'),
+    loadDropDownPages: () => cy.get('[role="button"]').get('[aria-haspopup="listbox"]'),
+    allPages: () => cy.get('[data-value="100"]'),
+    dialogBoxNameField: () => cy.get('[role = "dialog"]').get('[data-cy="name-field"]'),
+    renameBtn: () => cy.get('li[data-cy*="rename-button"]'),
+    checkBox: () => cy.get('[type="checkbox"]').not('disabled')
  };
 
 export const actions = {
@@ -51,7 +60,14 @@ export const actions = {
         elements.addNewEnqTypeBtn().click();
         return actions;
     },
-
+    clickLoadAllPages() {
+        elements.loadDropDownPages().click();
+        return actions;
+    },
+    clickAllPages() {
+        elements.allPages().click();
+        return actions;
+    },
     verifycloseReasonItemsVisible() {
         elements.closeReasonitems().should('be.visible');
         return actions;
