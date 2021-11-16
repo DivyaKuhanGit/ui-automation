@@ -1,12 +1,14 @@
 import { actions as navMenuActions } from '../domain/components/NavigationMenu.domain';
 import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
-import { actions as bdmSumbenuActions } from '../domain/components/BdmSubmenu.domain';
-import { actions as bdmConfigMenuActions } from '../domain/components/EmquiryConfigurationMenu.domain';
+import { actions as bdmSubMenuActions } from '../domain/components/BdmSubmenu.domain';
+import { actions as bdmConfigMenuActions } from '../domain/components/EnquiryConfigurationMenu.domain';
 import { actions as configMenuActions } from '../domain/components/ConfigurationMenu.domain';
-import { elements as enquiryConfigmenuElements } from '../domain/components/EmquiryConfigurationMenu.domain';
-import { v4 } from 'uuid';
-const randomVal = v4();
-const orignalStatus = randomVal;
+import { elements as enquiryConfigMenuElements } from '../domain/components/EnquiryConfigurationMenu.domain';
+import { v4 as uuid } from 'uuid';
+import { loadAllPages } from '../utils/morePageLoader.util';
+
+const randomVal = uuid();
+const originalStatus = randomVal;
 const enqStatusItems = '[data-cy="enquiry-statuses-items"]';
 
 describe('Edit Enquiry Status :', () => {
@@ -20,10 +22,10 @@ describe('Edit Enquiry Status :', () => {
         tenantSelectActions.submitSelection();
 
         // open BDM module
-        navMenuActions.clickBuisnessDevelopmentButton();
+        navMenuActions.clickBusinessDevelopmentButton();
 
         // access configuration in bdm
-        bdmSumbenuActions.clickConfigurationButton();
+        bdmSubMenuActions.clickConfigurationButton();
 
         // access configure enquiries
         configMenuActions.clickEnquiries();
@@ -33,9 +35,9 @@ describe('Edit Enquiry Status :', () => {
         bdmConfigMenuActions.clickAddEnqStatus();
 
         //Actions to be performed inside dialog box
-        cy.focused().get('[role="dialog"]').get('[data-cy="name-field"]').focused().type(v4());
+        cy.focused().get('[role="dialog"]').get('[data-cy="name-field"]').focused().type(uuid());
         cy.focused().blur();
-        enquiryConfigmenuElements.addEnqSaveBtn().click();
+        enquiryConfigMenuElements.addEnqSaveBtn().click();
     });
 
     it('BDM : Rename Enquiry Status', () => {
@@ -51,10 +53,10 @@ describe('Edit Enquiry Status :', () => {
         tenantSelectActions.submitSelection();
 
         // open BDM module
-        navMenuActions.clickBuisnessDevelopmentButton();
+        navMenuActions.clickBusinessDevelopmentButton();
 
         // access configuration in bdm
-        bdmSumbenuActions.clickConfigurationButton();
+        bdmSubMenuActions.clickConfigurationButton();
 
         // access configure enquiries
         configMenuActions.clickEnquiries();
@@ -66,7 +68,7 @@ describe('Edit Enquiry Status :', () => {
         //Actions to be performed inside dialog box
         cy.focused().get('[role="dialog"]').get('[data-cy="name-field"]').focused().type(randomVal);
         cy.focused().blur();
-        enquiryConfigmenuElements.addEnqSaveBtn().click();
+        enquiryConfigMenuElements.addEnqSaveBtn().click();
 
         // wait for the request to the api to get the first page of enquiry close reasons
         cy.wait('@resp').then((r) => {
@@ -78,7 +80,7 @@ describe('Edit Enquiry Status :', () => {
 
         // All Pages Loaded, check that the element we just added is present
         cy.get(enqStatusItems)
-            .contains('p', orignalStatus)
+            .contains('p', originalStatus)
             .parent()
             .parent()
             .parent()
@@ -90,22 +92,7 @@ describe('Edit Enquiry Status :', () => {
 
         //Renaming the Old Reason Name to New Name
         cy.get('[role=dialog]').get('[data-cy="name-field"]').clear();
-        enquiryConfigmenuElements.renameTextfield().type('Renamed-' + v4());
-        enquiryConfigmenuElements.renameCloseReasonSave().click();
+        enquiryConfigMenuElements.renameTextField().type('Renamed-' + uuid());
+        enquiryConfigMenuElements.renameCloseReasonSave().click();
     });
 });
-
-function loadAllPages(pages, level = 0) {
-    if (level > 30 || pages > 30) {
-        throw 'Exceeded recursion depth';
-    }
-    if (level >= pages) {
-        return;
-    }
-    return cy
-        .get('button:not([disabled])[data-cy=enquiry-statuses-load-more-button]')
-        .then((e) => {
-            cy.wrap(e).click();
-            return loadAllPages(pages, level + 1);
-        });
-}

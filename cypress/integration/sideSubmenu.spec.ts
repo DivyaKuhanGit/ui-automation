@@ -3,7 +3,7 @@ import { actions as sideSubMenuActions } from '../domain/components/UMSideSubmen
 import { actions as bdmSideSubMenuActions } from '../domain/components/BdmSubmenu.domain';
 import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
 
-describe('"User Management" Submenu', () => {
+describe('"User Management" SubMenu', () => {
   beforeEach(() => {
     cy.loginTrainingProvider();
 
@@ -12,37 +12,37 @@ describe('"User Management" Submenu', () => {
     navMenuActions.clickUserManagementButton();
   });
 
-  it('Validate "Users" sumbenu option', () => {
+  it('Validate "Users" sub-menu option', () => {
     sideSubMenuActions.verifyUsersButtonVisible().clickUserButton();
   });
 
-  it('Validate "User Groups" sumbenu option', () => {
+  it('Validate "User Groups" sub-menu option', () => {
     sideSubMenuActions.verifyUserGroupButtonVisible().clickUserButton();
   });
 });
 
-describe('"Buisness Development" Submenu', () => {
+describe('"Business Development" sub-menu', () => {
   beforeEach(() => {
     cy.loginTrainingProvider();
 
-    // get to BDM submenu
+    // get to BDM sub-menu
     tenantSelectActions.pickTestTenant().submitSelection();
     navMenuActions.clickBusinessDevelopmentButton();
   });
 
-  it('Validate "Enquiries" sumbenu option', () => {
+  it('Validate "Enquiries" sub-menu option', () => {
     bdmSideSubMenuActions.verifyEnquiriesButtonVisible().clickEnquiriesButton();
   });
 
-  it('Validate "Accounts" sumbenu option', () => {
+  it('Validate "Accounts" sub-menu option', () => {
     bdmSideSubMenuActions.verifyAccountsButtonVisible().clickAccountsButton();
   });
 
-  it('Validate "Opportunities" sumbenu option', () => {
+  it('Validate "Opportunities" sub-menu option', () => {
     bdmSideSubMenuActions.verifyOpportunitiesButtonVisible().clickOpportunitiesButton();
   });
 
-  it('Validate "Configuration" sumbenu option', () => {
+  it('Validate "Configuration" sub-menu option', () => {
     bdmSideSubMenuActions.verifyConfigurationButtonVisible().clickConfigurationButton();
   });
 });

@@ -3,14 +3,15 @@ export const elementPaths={
  }
 
  export const elements = {
-    editEnqCloseReason: () => cy.get('[role="button"]').contains('Edit Enquiry Close Reasons'),
+
+    editEnqCloseReason: () => cy.get('[data-cy=enquiry-close-reasons-button]'),
     addCloseReason: () => cy.get('[type="button"]').contains('Add Close Reason'),
     enterCloseReason: () => cy.get('input[type = text]'),
     loadMore: () => cy.get('[data-cy="enquiry-close-reasons-load-more-button"]').contains('Load more'),
-    closeReasonitems: () => cy.get('[data-cy=enquiry-close-reasons-items]'),
+    closeReasonItems: () => cy.get('[data-cy=enquiry-close-reasons-items]'),
     addCloseReasonSave: () => cy.get('[role="dialog"]').get('[type="submit"]').contains('Save'),
     addCloseReasonCancel: () => cy.get('[data-cy="cancel-button"]'),
-    renameTextfield:() => cy.get('[id="name"]'),
+    renameTextField:() => cy.get('[id="name"]'),
     renameCloseReasonSave: () => cy.get('[role=dialog]').get('[data-cy="submit-button"]').contains('Save'),
     renameCloseReasonCancel: () => cy.get('[role=dialog]').get('[data-cy="cancel-button"]').contains('Cancel'),
     editEnqStatus: () => cy.get('[data-cy="enquiry-statuses-button"]').contains('Edit Enquiry Statuses'),
@@ -68,8 +69,8 @@ export const actions = {
         elements.allPages().click();
         return actions;
     },
-    verifycloseReasonItemsVisible() {
-        elements.closeReasonitems().should('be.visible');
+    verifyCloseReasonItemsVisible() {
+        elements.closeReasonItems().should('be.visible');
         return actions;
     },
 

@@ -7,7 +7,7 @@ describe('Side Menu navigation', () => {
   });
 
   it('Validate UserManagement button is available after log in', () => {
-    navMenuActions.verifyUserManagementDoesntExist();
+    navMenuActions.verifyUserManagementDoesNotExist();
     tenantSelectActions.pickTestTenant().submitSelection();
     navMenuActions.verifyUserManagementButtonVisible();
   });
@@ -15,6 +15,6 @@ describe('Side Menu navigation', () => {
   it('Validate BDM is only after access to a tenant with correct permissions', () => {
     navMenuActions.verifyBdmButtonDoesNotExist();
     tenantSelectActions.pickTestTenant().submitSelection();
-    navMenuActions.verifyBuisnessDevelopmentButtonVisible().clickBusinessDevelopmentButton();
+    navMenuActions.verifyBusinessDevelopmentButtonVisible().clickBusinessDevelopmentButton();
   });
 });

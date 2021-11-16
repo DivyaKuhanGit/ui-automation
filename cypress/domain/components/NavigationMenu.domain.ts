@@ -38,12 +38,12 @@ export const actions = {
     return actions;
   },
 
-  verifyUserManagementDoesntExist() {
+  verifyUserManagementDoesNotExist() {
     elements.userManagementButton().should('not.exist');
     return actions;
   },
 
-  verifyBuisnessDevelopmentButtonVisible() {
+  verifyBusinessDevelopmentButtonVisible() {
     elements.bdmButton().should('be.visible');
     return actions;
   },

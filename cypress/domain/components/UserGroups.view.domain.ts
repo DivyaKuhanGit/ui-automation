@@ -25,7 +25,7 @@ export const actions = {
   },
 
   searchForGroupByName(groupName: string) {
-    elements.searchBox().type(`${groupName}`).click();
+    elements.searchBox().should('be.visible').type(`${groupName}`).click();
     elements.searchBox().type('{enter}');
     return actions;
   },
@@ -35,7 +35,7 @@ export const actions = {
       .groupTable()
       .contains("td", groupName)
       .siblings()
-      .find(`button[aria-controls*='${groupName}']`)
+      .find('svg')
       .click();
 
     return actions;

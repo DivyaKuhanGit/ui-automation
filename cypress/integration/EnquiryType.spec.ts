@@ -1,10 +1,10 @@
 import { actions as navMenuActions } from '../domain/components/NavigationMenu.domain';
 import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
-import { actions as bdmSumbenuActions } from '../domain/components/BdmSubmenu.domain';
+import { actions as bdmSubMenuActions } from '../domain/components/BdmSubmenu.domain';
 import { actions as configMenuActions } from '../domain/components/ConfigurationMenu.domain';
-import { actions as enquiryConfigmenuactions } from '../domain/components/EmquiryConfigurationMenu.domain';
-import { elements as enquiryConfigElements } from '../domain/components/EmquiryConfigurationMenu.domain';
-import { v4 } from 'uuid';
+import { actions as enquiryConfigMenuActions } from '../domain/components/EnquiryConfigurationMenu.domain';
+import { elements as enquiryConfigElements } from '../domain/components/EnquiryConfigurationMenu.domain';
+import { loadAllPages } from '../utils/morePageLoader.util';
 
 
 describe("Enquiry Type : ", () => {
@@ -15,73 +15,16 @@ describe("Enquiry Type : ", () => {
         tenantSelectActions.submitSelection();
 
         // open BDM module
-        navMenuActions.clickBuisnessDevelopmentButton();
+        navMenuActions.clickBusinessDevelopmentButton();
 
         // access configuration in bdm
-        bdmSumbenuActions.clickConfigurationButton();
+        bdmSubMenuActions.clickConfigurationButton();
     });
 
-    //it("BDM Add New Enquiry Type", () => {
-    //    const randomVal = v4();
-    //    const orignalType = randomVal;
-
-    //    // access configure enquiries
-    //    configMenuActions.clickEnquiries();
-
-    //    //Actual Enquiry Type Screen Navigation
-    //    enquiryConfigmenuactions.clickAddNewEnqType();
-
-    //    //Actions to be performed inside dialog box
-    //    cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(randomVal);
-    //    cy.focused().blur();
-    //    enquiryConfigElements.addEnqSaveBtn().click();
-    //    enquiryConfigmenuactions.clickLoadAllPages();
-    //    enquiryConfigmenuactions.clickAllPages();
-    //    enquiryConfigElements.enquiryTypeTable().contains('p', orignalType);
-    //});
-
-    //it("BDM Rename Enquiry Type", () => {
-    //    const nameVal = v4();
-    //    const renameVal = nameVal;
-    //    const typeName = v4();
-    //    const checkname = 'Renamed-' + typeName;
-
-    //    // access configure enquiries
-    //    configMenuActions.clickEnquiries();
-
-    //    //Actual Enquiry Type Screen Navigation
-    //    enquiryConfigmenuactions.clickAddNewEnqType();
-
-    //    //Actions to be performed inside dialog box
-    //    cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(nameVal);
-    //    cy.focused().blur();
-    //    enquiryConfigElements.addEnqSaveBtn().click();
-
-    //    //Actions to be performed to find and rename the added value.
-    //    enquiryConfigmenuactions.clickLoadAllPages();
-    //    enquiryConfigmenuactions.clickAllPages();
-    //    enquiryConfigElements.enquiryTypeTable()
-    //        .contains('p', renameVal)
-    //        .parent()
-    //        .siblings()
-    //        .children('button')
-    //        .click();
-
-    //    enquiryConfigElements.renameBtn().focused().click();
-
-    //    //Renaming the Old Reason Name to New Name
-    //    enquiryConfigElements.dialogBoxNameField().clear();
-    //    enquiryConfigElements.renameTextfield().type(checkname);
-    //    enquiryConfigElements.addEnqSaveBtn().click();
-    //    enquiryConfigmenuactions.clickLoadAllPages();
-    //    enquiryConfigmenuactions.clickAllPages();
-    //    enquiryConfigElements.enquiryTypeTable().contains('p', checkname);
-    //});
-
     it("BDM : Create Enquiry Type and Set Enquiry Status", () => {
-        const actualVal = "028f17a3-1908-4181-90ff-756fcfba3589";//v4();
+        const actualVal = "028f17a3-1908-4181-90ff-756fcfba3589";
         const editedVal = actualVal;
-        const statusVal = "8356e2a6-eec1-4560-b221-342ded020125";//v4();
+        const statusVal = "8356e2a6-eec1-4560-b221-342ded020125";
         const refStatus = statusVal;
 
         //Actions to get response after loading all pages
@@ -96,16 +39,10 @@ describe("Enquiry Type : ", () => {
         configMenuActions.clickEnquiries();
 
         //Actions to Add New Enquiry Status
-        enquiryConfigmenuactions.clickEditEnqStatus();
-        //enquiryConfigmenuactions.clickAddEnqStatus();
-
-        ////Actions to be performed inside dialog box
-        //enquiryConfigElements.dialogBoxNameField().focused().type(statusVal);
-        //cy.focused().blur();
-        //enquiryConfigElements.addEnqSaveBtn().click();
+        enquiryConfigMenuActions.clickEditEnqStatus();
 
         // wait for the request to the api to get the first page of enquiry close reasons
-        cy.wait('@resp').then((r) => {
+        cy.wait('@resp').then(() => {
             const totalItems = body.totalItems;
             // calculate the total number of pages we're going to need
             const pages = Math.floor(totalItems / 10);
@@ -117,17 +54,9 @@ describe("Enquiry Type : ", () => {
         // access configure enquiries
         configMenuActions.clickEnquiries();
 
-        ////Actual Enquiry Type Screen Navigation
-        //enquiryConfigmenuactions.clickAddNewEnqType();
-
-        ////Actions to be performed inside dialog box
-        //cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(actualVal);
-        //cy.focused().blur();
-        //enquiryConfigElements.addEnqSaveBtn().click();
-
         //Actions to click Action menu and Edit Button
-        enquiryConfigmenuactions.clickLoadAllPages();
-        enquiryConfigmenuactions.clickAllPages();
+        enquiryConfigMenuActions.clickLoadAllPages();
+        enquiryConfigMenuActions.clickAllPages();
         enquiryConfigElements.enquiryTypeTable()
             .contains('p', editedVal)
             .parent()
@@ -159,18 +88,3 @@ describe("Enquiry Type : ", () => {
             .check().should('be.checked')
     });
 });
-
-function loadAllPages(pages, level = 0) {
-    if (level > 30 || pages > 30) {
-        throw 'Exceeded recursion depth';
-    }
-    if (level >= pages) {
-        return;
-    }
-    return cy
-        .get('button:not([disabled])[data-cy=enquiry-statuses-load-more-button]')
-        .then((e) => {
-            cy.wrap(e).click();
-            return loadAllPages(pages, level + 1);
-        });
-}
