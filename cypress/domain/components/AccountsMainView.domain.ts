@@ -51,7 +51,7 @@ export const actions = {
   },
 
   verifySearchBarEnabled:()=>{
-    elements.searchBar().should('not.be.enabled')
+    elements.searchBar().should('be.enabled')
     return actions;
   }
 };
