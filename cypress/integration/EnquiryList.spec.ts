@@ -29,7 +29,7 @@ describe("Edit Enquiry Status :", () => {
     enquiryConfigMenuElements.addEnqSaveBtn().click();
   });
 
-  it.only("BDM Edit Enquiry Type", () => {
+  it("BDM Edit Enquiry Type", () => {
     const actualVal = v4();
     const statusVal = v4();
 
