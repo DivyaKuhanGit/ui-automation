@@ -8,7 +8,7 @@ import {
 import { actions as userCreateFlowPageActions } from "../domain/components/CreateNewUserGroup.domain";
 import { actions as tenantSelectActions } from "../domain/components/TenantSelect.domain";
 import { UserGroupType } from "../domain/components/CreateNewUserGroup.domain";
-import { v4 } from "uuid";
+import { v4 as uuid} from "uuid";
 import {
   BdmPermissions,
   Modules,
@@ -26,7 +26,7 @@ describe("Groups: ", () => {
   // TODO: this test is overloaded, need to think of a good way
   //  to break it up into separate testable actions
   it("Groups CRUD", () => {
-    let newGroupName = `automation-${v4()}`;
+    let newGroupName = `automation-${uuid()}`;
 
     createNewGroup(newGroupName);
     navigateToGroupListingPage();

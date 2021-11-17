@@ -1,13 +1,15 @@
 import { actions as navMenuActions } from '../domain/components/NavigationMenu.domain';
 import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
-import { actions as bdmSumbenuActions } from '../domain/components/BdmSubmenu.domain';
-import { actions as bdmConfigMenuActions } from '../domain/components/EmquiryConfigurationMenu.domain';
+import { actions as bdmSubMenuActions } from '../domain/components/BdmSubmenu.domain';
+import { actions as bdmConfigMenuActions } from '../domain/components/EnquiryConfigurationMenu.domain';
 import { actions as configMenuActions } from '../domain/components/ConfigurationMenu.domain';
-import { elements as enquiryConfigmenuElements } from '../domain/components/EmquiryConfigurationMenu.domain';
-import { v4 } from 'uuid';
-const randomVal = v4();
+import { elements as enquiryConfigMenuElements } from '../domain/components/EnquiryConfigurationMenu.domain';
+import { v4 as uuid} from 'uuid';
+import { GenericTotalItemsResponse, loadAllPages } from '../utils/morePageLoader.util';
+
+const randomVal = uuid();
 const enqItemList = '[data-cy=enquiry-close-reasons-items]';
-const orignalVal = randomVal;
+const originalVal = randomVal;
 
 
 describe('Edit Enquiry Close Reason:', () => {
@@ -21,10 +23,10 @@ describe('Edit Enquiry Close Reason:', () => {
         tenantSelectActions.submitSelection();
 
         // open BDM module
-        navMenuActions.clickBuisnessDevelopmentButton();
+        navMenuActions.clickBusinessDevelopmentButton();
 
         // access configuration in bdm
-        bdmSumbenuActions.clickConfigurationButton();
+        bdmSubMenuActions.clickConfigurationButton();
 
         // access configure enquiries
         configMenuActions.clickEnquiries();
@@ -34,13 +36,13 @@ describe('Edit Enquiry Close Reason:', () => {
         bdmConfigMenuActions.clickAddCloseReason();
 
         //Actions to be performed inside dialog box
-        cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(v4());
+        cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(uuid());
         cy.focused().blur();
-        enquiryConfigmenuElements.addCloseReasonSave().click();
+        enquiryConfigMenuElements.addCloseReasonSave().click();
     });
 
-    it.only('BDM : Rename Enqiury Close Reason', () => {
-        let body: object = {};
+    it('BDM : Rename Enqiury Close Reason', () => {
+        let body:GenericTotalItemsResponse;
         cy.intercept('/business-development/enquiry-close-reasons?page=0', (request) => {
             request.continue((response) => {
                 body = response.body;
@@ -52,10 +54,10 @@ describe('Edit Enquiry Close Reason:', () => {
         tenantSelectActions.submitSelection();
 
         // open BDM module
-        navMenuActions.clickBuisnessDevelopmentButton();
+        navMenuActions.clickBusinessDevelopmentButton();
 
         // access configuration in bdm
-        bdmSumbenuActions.clickConfigurationButton();
+        bdmSubMenuActions.clickConfigurationButton();
 
         // access configure enquiries
         configMenuActions.clickEnquiries();
@@ -67,7 +69,7 @@ describe('Edit Enquiry Close Reason:', () => {
         //Actions to be performed inside dialog box
         cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(randomVal);
         cy.focused().blur();
-        enquiryConfigmenuElements.addCloseReasonSave().click();
+        enquiryConfigMenuElements.addCloseReasonSave().click();
 
         // wait for the request to the api to get the first page of enquiry close reasons
         cy.wait('@resp').then((r) => {
@@ -79,7 +81,7 @@ describe('Edit Enquiry Close Reason:', () => {
 
         // All Pages Loaded, check that the element we just added is present
         cy.get(enqItemList)
-            .contains('p', orignalVal)
+            .contains('p', originalVal)
             .parent()
             .parent()
             .parent()
@@ -87,26 +89,11 @@ describe('Edit Enquiry Close Reason:', () => {
             .siblings()
             .click();
 
-        enquiryConfigmenuElements.renameBtn().focused().click();
+        enquiryConfigMenuElements.renameBtn().focused().click();
 
         //Renaming the Old Reason Name to New Name
-        enquiryConfigmenuElements.dialogBoxNameField().clear();
-        enquiryConfigmenuElements.renameTextfield().type('Renamed-' + v4());
-        enquiryConfigmenuElements.renameCloseReasonSave().click();
+        enquiryConfigMenuElements.dialogBoxNameField().clear();
+        enquiryConfigMenuElements.renameTextField().type('Renamed-' + uuid());
+        enquiryConfigMenuElements.renameCloseReasonSave().click();
     });
 });
-
-function loadAllPages(pages, level = 0) {
-    if (level > 30 || pages > 30) {
-        throw 'Exceeded recursion depth';
-    }
-    if (level >= pages) {
-        return;
-    }
-    return cy
-        .get('button:not([disabled])[data-cy=enquiry-close-reasons-load-more-button]')
-        .then((e) => {
-            cy.wrap(e).click();
-            return loadAllPages(pages, level + 1);
-        });
-}

@@ -49,4 +49,9 @@ export const actions = {
 
     return actions;
   },
+
+  verifySearchBarEnabled:()=>{
+    elements.searchBar().should('be.enabled')
+    return actions;
+  }
 };

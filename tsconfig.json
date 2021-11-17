@@ -1,10 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["es5", "dom"],
+    "target": "es2020",
+    "lib": ["es2020"],
     "types": ["cypress", "cypress-localstorage-commands"],
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "pretty": true,
+    "strict":true,
+    "noImplicitAny": true
   },
   "include": ["**/*.ts"]
 }
