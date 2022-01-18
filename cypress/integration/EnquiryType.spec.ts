@@ -1,6 +1,5 @@
 import { actions as navMenuActions } from '../domain/components/NavigationMenu.domain';
 import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
-import { actions as bdmSumbenuActions } from '../domain/components/BdmSubmenu.domain';
 import { actions as configMenuActions } from '../domain/components/ConfigurationMenu.domain';
 import { actions as enquiryConfigmenuactions } from '../domain/components/EmquiryConfigurationMenu.domain';
 import { elements as enquiryConfigElements } from '../domain/components/EmquiryConfigurationMenu.domain';
@@ -16,9 +15,6 @@ describe("Enquiry Type : ", () => {
 
         // open BDM module
         navMenuActions.clickBusinessDevelopmentButton();
-
-        // access configuration in bdm
-        bdmSumbenuActions.clickConfigurationButton();
     });
 
     it("BDM Add New Enquiry Type", () => {
@@ -33,7 +29,6 @@ describe("Enquiry Type : ", () => {
 
         //Actions to be performed inside dialog box
         cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(randomVal);
-        cy.focused().blur();
         enquiryConfigElements.addEnqSaveBtn().click();
         enquiryConfigmenuactions.clickLoadAllPages();
         enquiryConfigmenuactions.clickAllPages();
@@ -46,6 +41,15 @@ describe("Enquiry Type : ", () => {
         const typeName = v4();
         const checkname = 'Renamed-' + typeName;
 
+        //Enquiry Table Pagination
+        let body: object;
+        cy.intercept('/business-development/enquiry-types?page=0&pageSize=100', (request) => {
+            request.continue((response) => {
+                body = response.body;
+            });
+        }).as('tresp');
+
+
         // access configure enquiries
         configMenuActions.clickEnquiries();
 
@@ -54,12 +58,12 @@ describe("Enquiry Type : ", () => {
 
         //Actions to be performed inside dialog box
         cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(nameVal);
-        cy.focused().blur();
         enquiryConfigElements.addEnqSaveBtn().click();
 
         //Actions to be performed to find and rename the added value.
         enquiryConfigmenuactions.clickLoadAllPages();
         enquiryConfigmenuactions.clickAllPages();
+        checkNextPage(renameVal);
         enquiryConfigElements.enquiryTypeTable()
             .contains('p', renameVal)
             .parent()
@@ -67,7 +71,7 @@ describe("Enquiry Type : ", () => {
             .children('button')
             .click();
 
-        enquiryConfigElements.renameBtn().focused().click();
+        enquiryConfigElements.renameBtn().click();
 
         //Renaming the Old Reason Name to New Name
         enquiryConfigElements.dialogBoxNameField().clear();
@@ -75,6 +79,7 @@ describe("Enquiry Type : ", () => {
         enquiryConfigElements.addEnqSaveBtn().click();
         enquiryConfigmenuactions.clickLoadAllPages();
         enquiryConfigmenuactions.clickAllPages();
+        checkNextPage(checkname);
         enquiryConfigElements.enquiryTypeTable().contains('p', checkname);
     });
 
@@ -101,7 +106,6 @@ describe("Enquiry Type : ", () => {
 
         //Actions to be performed inside dialog box
         enquiryConfigElements.dialogBoxNameField().focused().type(statusVal);
-        cy.focused().blur();
         enquiryConfigElements.addEnqSaveBtn().click();
 
         //wait for the request to the api to get the first page of enquiry close reasons
@@ -111,8 +115,8 @@ describe("Enquiry Type : ", () => {
             const pages = Math.floor(totalItems / 10);
             loadAllPages(pages);
         })
+        cy.contains(statusVal);
 
-        enquiryConfigElements.enquiryStatusItem().contains(statusVal);
 
         // access configure enquiries
         configMenuActions.clickEnquiries();
@@ -122,14 +126,13 @@ describe("Enquiry Type : ", () => {
 
         //Actions to be performed inside dialog box
         cy.focused().get('[id="name"]').should('be.enabled').should('be.focused').type(actualVal);
-        cy.focused().blur();
         enquiryConfigElements.addEnqSaveBtn().click();
 
         //Actions to click Action menu and Edit Button
         enquiryConfigmenuactions.clickLoadAllPages();
         enquiryConfigmenuactions.clickAllPages();
-        enquiryConfigElements.enquiryTypeTable()
-            .contains('p', editedVal)
+        checkNextPage(editedVal);
+        enquiryConfigElements.enquiryTypeTable().contains('p', editedVal)
             .parent()
             .siblings()
             .children('button')
@@ -177,5 +180,19 @@ function loadAllPages(pages, level = 0) {
         .then((e) => {
             cy.wrap(e).click();
             return loadAllPages(pages, level + 1);
+        });
+}
+
+function checkNextPage(text) {
+    enquiryConfigElements.enquiryTypeTable().then(($Val) => {
+        if ($Val.text().includes(text)) {
+            return;
+        } else {
+            cy.get('button:not([disabled])[title="Go to next page"]')
+                .then((e) => {
+                    cy.wrap(e).click();
+                    return checkNextPage(text);
+                });
+            }
         });
 }

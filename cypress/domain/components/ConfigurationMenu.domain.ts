@@ -3,9 +3,9 @@ export const elementPaths = {
 };
 
 export const elements = {
-  enquiries: () => cy.get(elementPaths.menu).contains('Enquiries'),
-  opportunities: () => cy.get(elementPaths.menu).contains('Opportunities'),
-  accounts: () => cy.get(elementPaths.menu).contains('Accounts'),
+    enquiries: () => cy.get('[data-cy="nav-menu-configuration-item-enquiries"]'),
+  opportunities: () => cy.get('[data-cy="nav-menu-configuration-item-opportunities"]'),
+    accounts: () => cy.get('[data-cy="nav-menu-configuration-item-accounts"]'),
   priceBook: () => cy.get(elementPaths.menu).contains('Price Book')
 };
 

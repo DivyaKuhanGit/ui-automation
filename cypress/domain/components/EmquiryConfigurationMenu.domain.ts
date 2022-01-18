@@ -1,7 +1,3 @@
-export const elementPaths={
-    bdmMenu2: '[data-cy=bdm-configuration-secondary]'
- }
-
  export const elements = {
     editEnqCloseReason: () => cy.get('[role="button"]').contains('Edit Enquiry Close Reasons'),
     addCloseReason: () => cy.get('[type="button"]').contains('Add Close Reason'),
@@ -25,9 +21,10 @@ export const elementPaths={
     enquiryStatusItem: () => cy.get('[data-cy="enquiry-statuses-items"]'),
     loadDropDownPages: () => cy.get('[role="button"]').get('[aria-haspopup="listbox"]'),
     allPages: () => cy.get('[data-value="100"]'),
+    rightArrow: () => cy.get('[data-testid="KeyboardArrowRightIcon"]'),
     dialogBoxNameField: () => cy.get('[role = "dialog"]').get('[data-cy="name-field"]'),
     renameBtn: () => cy.get('li[data-cy*="rename-button"]'),
-    checkBox: () => cy.get('[type="checkbox"]').not('disabled')
+    checkBox: () => cy.get('[type="checkbox"]')
  };
 
 export const actions = {
@@ -70,6 +67,10 @@ export const actions = {
     },
     verifycloseReasonItemsVisible() {
         elements.closeReasonitems().should('be.visible');
+        return actions;
+    },
+    clickRightArrow() {
+        elements.rightArrow().click();
         return actions;
     },
 
