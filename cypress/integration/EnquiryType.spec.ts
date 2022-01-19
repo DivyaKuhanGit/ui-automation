@@ -1,8 +1,8 @@
 import { actions as navMenuActions } from '../domain/components/NavigationMenu.domain';
 import { actions as tenantSelectActions } from '../domain/components/TenantSelect.domain';
 import { actions as configMenuActions } from '../domain/components/ConfigurationMenu.domain';
-import { actions as enquiryConfigmenuactions } from '../domain/components/EmquiryConfigurationMenu.domain';
-import { elements as enquiryConfigElements } from '../domain/components/EmquiryConfigurationMenu.domain';
+import { actions as enquiryConfigmenuactions } from '../domain/components/EnquiryConfigurationMenu.domain';
+import { elements as enquiryConfigElements } from '../domain/components/EnquiryConfigurationMenu.domain';
 import { v4 } from 'uuid';
 
 
@@ -32,6 +32,7 @@ describe("Enquiry Type : ", () => {
         enquiryConfigElements.addEnqSaveBtn().click();
         enquiryConfigmenuactions.clickLoadAllPages();
         enquiryConfigmenuactions.clickAllPages();
+        checkNextPage(orignalType);
         enquiryConfigElements.enquiryTypeTable().contains('p', orignalType);
     });
 
@@ -40,15 +41,6 @@ describe("Enquiry Type : ", () => {
         const renameVal = nameVal;
         const typeName = v4();
         const checkname = 'Renamed-' + typeName;
-
-        //Enquiry Table Pagination
-        let body: object;
-        cy.intercept('/business-development/enquiry-types?page=0&pageSize=100', (request) => {
-            request.continue((response) => {
-                body = response.body;
-            });
-        }).as('tresp');
-
 
         // access configure enquiries
         configMenuActions.clickEnquiries();
@@ -75,7 +67,7 @@ describe("Enquiry Type : ", () => {
 
         //Renaming the Old Reason Name to New Name
         enquiryConfigElements.dialogBoxNameField().clear();
-        enquiryConfigElements.renameTextfield().type(checkname);
+        enquiryConfigElements.renameTextField().type(checkname);
         enquiryConfigElements.addEnqSaveBtn().click();
         enquiryConfigmenuactions.clickLoadAllPages();
         enquiryConfigmenuactions.clickAllPages();
