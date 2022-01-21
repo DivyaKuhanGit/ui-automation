@@ -6,7 +6,7 @@ import { elements as opportunityConfigElements } from '../domain/components/Oppo
 import { v4 } from 'uuid';
 
 
-describe("Enquiry Type : ", () => {
+describe("Opportunity Type : ", () => {
     beforeEach(() => {
         cy.loginTrainingProvider();
         // select test tenant

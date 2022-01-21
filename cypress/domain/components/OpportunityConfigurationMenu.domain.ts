@@ -15,7 +15,9 @@ export const elements = {
     editOpportunityStatus: () => cy.get('[data-cy="opportunity-statuses-button"]'),
     addOpportunityStatus: () => cy.get('[data-cy="add-opportunity-status-button"]'),
     addOpportunityType: () => cy.get('[data-cy="add-opportunity-type-button"]'),
-    combobox: () => cy.get('[role="combobox"]')
+    combobox: () => cy.get('[role="combobox"]'),
+    createOpportunity: () => cy.get('[data-cy="create-opportunity-button"]'),
+    nameField: () => cy.get('[id="name"]'),
 };
 export const actions = {
     clickaddNewOpportunityTypeBtn() {
@@ -46,4 +48,10 @@ export const actions = {
         elements.addOpportunityType().click();
         return actions;
     },
+
+    clickCreateOpportunity() {
+        elements.createOpportunity().click();
+        return actions;
+    },
+
 };
