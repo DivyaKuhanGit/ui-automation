@@ -174,7 +174,6 @@ function loadAllPages(pages, level = 0) {
             return loadAllPages(pages, level + 1);
         });
 }
-
 function checkNextPage(text) {
     enquiryConfigElements.enquiryTypeTable().then(($Val) => {
         if ($Val.text().includes(text)) {
